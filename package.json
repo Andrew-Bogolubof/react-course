@@ -20,7 +20,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "stylelint": "stylelint \"src/**/*.css\"",
+    "compile": "tsc",
+    "lint": "eslint --ext .ts,.tsx src --color",
+    "prettier": "prettier --write src/**/*.ts src/**/*.tsx src/**/*.css"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +43,35 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.0",
+    "babel-eslint": "10.1.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-airbnb-typescript": "12.3.1",
+    "eslint-config-prettier": "7.2.0",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-import-resolver-typescript": "2.3.0",
+    "eslint-loader": "4.0.2",
+    "eslint-plugin-flowtype": "5.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-prettier": "3.3.1",
+    "eslint-plugin-react": "7.22.0",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "husky": "^5.0.9",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.2.1",
+    "prettier-eslint": "12.0.0",
+    "prettier-eslint-cli": "5.0.0",
+    "stylelint": "^13.10.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^20.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all compile prettier stylelint lint"
+    }
   }
 }
