@@ -18,3 +18,7 @@ code {
 #root {
   height: 100%;
 }
+
+.btn-primary {
+  background-color: #f65261;
+}

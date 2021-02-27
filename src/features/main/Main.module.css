@@ -1,4 +1,8 @@
 .main {
   background-color: #424242;
-  height: -webkit-fill-available;
+  flex: 1;
+}
+
+.movies_sort {
+  border-bottom: 2px;
 }

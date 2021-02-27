@@ -7,8 +7,40 @@ export interface HeaderProps {}
 const Header: React.FunctionComponent<HeaderProps> = () => (
   <header className={`container-fluid ${classes.header}`}>
     <ErrorBoundary>
-      <div className="container-xl">Container with logo and add movie</div>
-      <div className="container-xl">Container with search</div>
+      <div className="container-xl">
+        <div className={`row d-flex align-items-center ${classes.add_movie}`}>
+          <div className="col">
+            <div className={`text-left h4 ${classes.logo_text}`}>
+              <b>netflix</b>roulette
+            </div>
+          </div>
+          <div className="col d-flex justify-content-end">
+            <button type="button" className="btn btn-secondary">
+              Add Movie
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="container-lg container-sm">
+        <div className="row">
+          <div className="col-sm">
+            <div className={`text-left h1 ${classes.find_movie_title}`}>Find Your Movie</div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control mr-2"
+              placeholder="What do you want to watch?"
+              aria-label="Server"
+            />
+          </div>
+          <button type="button" className="btn btn-primary">
+            Search
+          </button>
+        </div>
+      </div>
     </ErrorBoundary>
   </header>
 );

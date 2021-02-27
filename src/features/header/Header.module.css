@@ -1,3 +1,20 @@
 .header {
-  height: 450px;
+  min-height: 290px;
+  color: #f65261;
+  background-color: #555;
+}
+
+.find_movie_title {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: normal;
+  padding: 10px 0;
+}
+
+.logo_text {
+  font-weight: normal;
+}
+
+.add_movie {
+  padding: 15px;
 }

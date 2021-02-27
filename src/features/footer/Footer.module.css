@@ -1,3 +1,9 @@
 .footer {
   height: 70px;
+  background-color: #555;
+}
+
+.footer_text {
+  color: #f65261;
+  font-weight: normal;
 }
