@@ -28,15 +28,15 @@ const Header: React.FunctionComponent<HeaderProps> = () => (
           </div>
         </div>
         <div className="row">
-          <div className="input-group">
+          <div className="col input-group">
             <input
               type="text"
-              className="form-control mr-2"
+              className="form-control"
               placeholder="What do you want to watch?"
               aria-label="Server"
             />
           </div>
-          <button type="button" className="btn btn-primary">
+          <button type="button" className="btn btn-primary ml-auto">
             Search
           </button>
         </div>

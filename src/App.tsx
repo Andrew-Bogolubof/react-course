@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import classes from './App.module.css';
 import { Header } from './features/header';
 import { Main } from './features/main';
