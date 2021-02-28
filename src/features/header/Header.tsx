@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Input } from '../common/input';
 import { PrimaryButton } from '../common/primary-button';
 import { SecondaryButton } from '../common/secondary-button';
 import { ErrorBoundary } from '../error-boundary';
@@ -10,8 +11,8 @@ const Header: React.FunctionComponent<HeaderProps> = () => (
   <header className={`container-fluid ${classes.header}`}>
     <ErrorBoundary>
       <div className={`${classes.background}`} />
-      <div className="container-xl">
-        <div className={`row d-flex align-items-center ${classes.add_movie}`}>
+      <div className="container-xxl">
+        <div className={`container-xxl row d-flex align-items-center ${classes.add_movie}`}>
           <div className="col">
             <div className={`text-left h4 ${classes.logo_text}`}>
               <b>netflix</b>roulette
@@ -22,21 +23,14 @@ const Header: React.FunctionComponent<HeaderProps> = () => (
           </div>
         </div>
       </div>
-      <div className="container-lg container-sm">
+      <div className="container-xl container-md container-sm">
         <div className="row">
           <div className="col-sm">
             <div className={`text-left h1 ${classes.find_movie_title}`}>Find Your Movie</div>
           </div>
         </div>
         <div className="row">
-          <div className="col input-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="What do you want to watch?"
-              aria-label="Server"
-            />
-          </div>
+          <Input placeholder="What do you want to watch?" />
           <PrimaryButton name="Search" />
         </div>
       </div>

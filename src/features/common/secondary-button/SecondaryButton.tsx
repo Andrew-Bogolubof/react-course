@@ -1,10 +1,10 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import classes from './SecondaryButton.module.css';
 
 export interface SecondaryButtonProps {
   name: string;
-  // TODO: make not optional
-  onClickHandler?: () => void;
+  // onClickHandler?: () => void;
 }
 
 const SecondaryButton: React.FunctionComponent<SecondaryButtonProps> = ({ name }) => (
@@ -14,3 +14,8 @@ const SecondaryButton: React.FunctionComponent<SecondaryButtonProps> = ({ name }
 );
 
 export default SecondaryButton;
+
+// TODO: delete after merging components-1 task, because it is redundant
+SecondaryButton.propTypes = {
+  name: PropTypes.string.isRequired,
+};

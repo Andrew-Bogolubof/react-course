@@ -1,10 +1,10 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import classes from './PrimaryButton.module.css';
 
 export interface PrimaryButtonProps {
   name: string;
-  // TODO: make not optional
-  onClickHandler?: () => void;
+  // onClickHandler?: () => void;
 }
 
 const PrimaryButton: React.FunctionComponent<PrimaryButtonProps> = ({ name }) => (
@@ -14,3 +14,8 @@ const PrimaryButton: React.FunctionComponent<PrimaryButtonProps> = ({ name }) =>
 );
 
 export default PrimaryButton;
+
+// TODO: delete after merging components-1 task, because it is redundant
+PrimaryButton.propTypes = {
+  name: PropTypes.string.isRequired,
+};
