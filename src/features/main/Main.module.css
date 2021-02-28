@@ -9,25 +9,3 @@
   color: #fff;
   border-bottom: 2px solid #555;
 }
-
-.genre {
-  position: relative;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.genre_selected {
-  position: absolute;
-  bottom: -18px;
-  width: 100%;
-  border-bottom: 2px solid #f65261;
-}
-
-.dropdown_button {
-  color: white;
-  text-transform: uppercase;
-}
-
-.dropdown_button:hover {
-  color: wheat;
-}

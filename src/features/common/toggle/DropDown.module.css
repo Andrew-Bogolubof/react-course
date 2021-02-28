@@ -1,0 +1,8 @@
+.dropdown_button {
+  color: white;
+  text-transform: uppercase;
+}
+
+.dropdown_button:hover {
+  color: wheat;
+}
