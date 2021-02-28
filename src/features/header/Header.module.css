@@ -1,7 +1,19 @@
 .header {
+  position: relative;
   min-height: 290px;
   color: #f65261;
-  background-color: #555;
+  background-color: #424242;
+  border-bottom: 10px solid #555;
+}
+
+.background {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  right: -10px;
+  left: -10px;
+  background-image: url(https://lh3.googleusercontent.com/proxy/vYXQDTfEla5wSk3u_4yCK_KOHKBa5G48X40W0-qZa8ryhcFPc_X6JFdeovpr17xb9OqNzsuS6Sfbk1qpM6L9fnj2v5u74dgfTJNWyYlh5pNL-Ejg);
+  filter: blur(5px);
 }
 
 .find_movie_title {

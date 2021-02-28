@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { PrimaryButton } from '../common/primary-button';
+import { SecondaryButton } from '../common/secondary-button';
 import { ErrorBoundary } from '../error-boundary';
 import classes from './Header.module.css';
 
@@ -7,6 +9,7 @@ export interface HeaderProps {}
 const Header: React.FunctionComponent<HeaderProps> = () => (
   <header className={`container-fluid ${classes.header}`}>
     <ErrorBoundary>
+      <div className={`${classes.background}`} />
       <div className="container-xl">
         <div className={`row d-flex align-items-center ${classes.add_movie}`}>
           <div className="col">
@@ -15,9 +18,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => (
             </div>
           </div>
           <div className="col d-flex justify-content-end">
-            <button type="button" className="btn btn-secondary">
-              Add Movie
-            </button>
+            <SecondaryButton name="+ Add Movie" />
           </div>
         </div>
       </div>
@@ -36,9 +37,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => (
               aria-label="Server"
             />
           </div>
-          <button type="button" className="btn btn-primary ml-auto">
-            Search
-          </button>
+          <PrimaryButton name="Search" />
         </div>
       </div>
     </ErrorBoundary>

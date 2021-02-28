@@ -1,5 +1,5 @@
 .main {
-  background-color: #424242;
+  background-color: #232323;
   flex: 1;
   color: #fff;
 }
@@ -8,9 +8,6 @@
   border-bottom: 2px;
   color: #fff;
   border-bottom: 2px solid #555;
-}
-
-.sort_row {
 }
 
 .genre {
@@ -29,4 +26,8 @@
 .dropdown_button {
   color: white;
   text-transform: uppercase;
+}
+
+.dropdown_button:hover {
+  color: wheat;
 }
