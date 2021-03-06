@@ -1,0 +1,24 @@
+.button_primary {
+  background-color: #f65261;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  border-width: 0;
+}
+
+.button_primary:hover {
+  background-color: #f6526088;
+}
+
+.button_secondary {
+  background-color: #555;
+  opacity: 0.5;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  border-width: 0;
+}
+
+.button_secondary:hover {
+  background-color: #f65261;
+}
