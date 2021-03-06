@@ -1,0 +1,12 @@
+.button {
+  background-color: #555;
+  opacity: 0.5;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  border-width: 0;
+}
+
+.button:hover {
+  background-color: #f65261;
+}

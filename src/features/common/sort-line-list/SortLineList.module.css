@@ -1,0 +1,12 @@
+.list_element {
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.list_element_selected {
+  position: absolute;
+  bottom: -18px;
+  width: 100%;
+  border-bottom: 2px solid #f65261;
+}

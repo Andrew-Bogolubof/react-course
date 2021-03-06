@@ -1,0 +1,18 @@
+.card {
+  color: #fff;
+  cursor: pointer;
+}
+
+.year {
+  border: 1px #555 solid;
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+
+.round_button {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  border-radius: 50%;
+  background-color: #232323;
+}
