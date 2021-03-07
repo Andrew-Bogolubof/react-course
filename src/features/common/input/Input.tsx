@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import classes from './Input.module.css';
 
 export interface InputProps {
@@ -19,8 +18,3 @@ const Input: React.FunctionComponent<InputProps> = ({ placeholder }) => (
 );
 
 export default Input;
-
-// TODO: delete after merging components-1 task, because it is redundant
-Input.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-};

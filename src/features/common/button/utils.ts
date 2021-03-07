@@ -1,4 +1,4 @@
-import { Button } from '../../../models/Button';
+import { Button } from './models';
 
 export const getButtonClassName = (type: Button) => {
   switch (type) {
@@ -8,6 +8,8 @@ export const getButtonClassName = (type: Button) => {
       return 'button_secondary';
     case Button.Cancel:
       return 'button_cancel';
+    case Button.Close:
+      return 'button_close';
     default:
       return 'button_primary';
   }

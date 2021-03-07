@@ -1,0 +1,12 @@
+.modal_content {
+  background-color: #424242;
+  color: #fff;
+}
+
+.modal_header {
+  border-bottom: none;
+}
+
+.modal_footer {
+  border-top: none;
+}

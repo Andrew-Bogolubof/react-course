@@ -1,34 +1,36 @@
 import * as React from 'react';
+import classes from './FormLayout.module.css';
+import { Button as ButtonType } from '../common/button/models';
+import { Button } from '../common/button';
 
 export interface FormLayoutProps {
   title: string;
   confirmButtonTitle: string;
-  cancelButtonTitle: string;
+  cancelButtonTitle?: string;
+  onCloseForm: () => void;
 }
 
 const FormLayout: React.FunctionComponent<FormLayoutProps> = ({
   title,
   confirmButtonTitle,
   cancelButtonTitle,
+  onCloseForm,
+  children,
 }) => (
-  <div className="modal-content">
-    <div className="modal-header">
-      <h5 className="modal-title" id="exampleModalLabel">
-        {title}
+  <div className={`modal-content ${classes.modal_content}`}>
+    <div className={`modal-header pl-5 ${classes.modal_header}`}>
+      <h5 className="modal-title">
+        <p className="h3 text-uppercase font-weight-normal mt-2">{title}</p>
       </h5>
-      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+      <Button type={ButtonType.Close} name="Submit" onClickHandler={() => onCloseForm()} />
     </div>
-    <div className="modal-body">...</div>
-    <div className="modal-footer">
+    <div className="modal-body pl-5">{children}</div>
+    <div className={`modal-footer ${classes.modal_footer}`}>
       {cancelButtonTitle && (
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-          {cancelButtonTitle}
-        </button>
+        <Button type={ButtonType.Cancel} name="Reset" onClickHandler={() => {}} />
       )}
-      {cancelButtonTitle && (
-        <button type="button" className="btn btn-primary">
-          {cancelButtonTitle}
-        </button>
+      {confirmButtonTitle && (
+        <Button type={ButtonType.Primary} name="Submit" onClickHandler={() => {}} />
       )}
     </div>
   </div>

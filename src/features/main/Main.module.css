@@ -2,6 +2,7 @@
   background-color: #232323;
   flex: 1;
   color: #fff;
+  border-top: 10px solid #555;
 }
 
 .movies_sort {
