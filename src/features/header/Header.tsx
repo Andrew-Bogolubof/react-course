@@ -5,8 +5,9 @@ import { Button } from '../common/button';
 import { ErrorBoundary } from '../error-boundary';
 import { Button as ButtonType } from '../common/button/models';
 import { Modal } from '../modal';
-import { FormLayout } from '../form-layout';
+import { ModalLayout } from '../modal-layout';
 import { Logo } from '../common/logo';
+import { AddMovieForm } from '../add-movie-form';
 
 export interface HeaderProps {}
 
@@ -30,12 +31,12 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
               />
               {isMovieAddModalOpened && (
                 <Modal>
-                  <FormLayout
+                  <ModalLayout
                     title="Add Movie"
-                    confirmButtonTitle="Submit"
-                    cancelButtonTitle="Reset"
                     onCloseForm={() => setIsMovieAddModalOpened(false)}
-                  />
+                  >
+                    <AddMovieForm />
+                  </ModalLayout>
                 </Modal>
               )}
             </div>
