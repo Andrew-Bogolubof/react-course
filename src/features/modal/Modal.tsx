@@ -13,12 +13,14 @@ const Tooltip: React.FunctionComponent<TooltipProps> = ({ children }) => {
   const modal = (
     <>
       <div className={`${classes.modal}`}>
-        <div className={`${classes.logo}`}>
-          <Logo />
-        </div>
-        <div className={`modal-dialog ${classes.modal_dialog}`}>{children}</div>
-        <div className={`${classes.footer}`}>
-          <Footer />
+        <div className={`${classes.modal_inner}`}>
+          <div className={`${classes.logo}`}>
+            <Logo />
+          </div>
+          <div className={`modal-dialog ${classes.modal_dialog}`}>{children}</div>
+          <div className={`${classes.footer}`}>
+            <Footer />
+          </div>
         </div>
       </div>
     </>

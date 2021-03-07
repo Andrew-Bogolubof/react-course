@@ -8,12 +8,14 @@ export type WithLabelType = <TProps extends { htmlFor?: string; placeholder: str
 }) => React.ReactNode;
 
 const WithLabel: WithLabelType = ({ Component, props, label }) => (
-  <>
+  <div className={classes.container}>
     <label className={`form-label pl-4 ${classes.label}`} htmlFor={props.htmlFor}>
       {label}
     </label>
-    <Component {...props} />
-  </>
+    <div className={`row pl-4 pr-4 ${classes.input}`}>
+      <Component {...props} />
+    </div>
+  </div>
 );
 
 export default WithLabel;

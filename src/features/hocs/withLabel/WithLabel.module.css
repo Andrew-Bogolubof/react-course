@@ -3,3 +3,11 @@
   text-transform: uppercase;
   font-weight: bold;
 }
+
+.container {
+  padding-bottom: 15px;
+}
+
+.input {
+  height: 40px;
+}

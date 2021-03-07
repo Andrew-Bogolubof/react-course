@@ -6,6 +6,20 @@ import { Button } from '../common/button';
 import { Input } from '../common/input';
 import { WithLabel } from '../hocs/withLabel';
 import { InputProps } from '../common/input/Input';
+import { DateInput } from '../common/date-input';
+import { DateInputProps } from '../common/date-input/DateInput';
+import SelectInput, { SelectInputProps } from '../common/select-input/SelectInput';
+// TODO: remove mock movies and genres
+import moviesList from '../../mocks/movies.json';
+
+const genres = Array.from(
+  moviesList
+    .reduce<Set<string>>((acc, movie) => {
+      movie.genres.forEach((genre) => acc.add(genre));
+      return acc;
+    }, new Set())
+    .values()
+).slice(0, 6);
 
 export interface AddMovieFormProps {}
 
@@ -61,11 +75,72 @@ const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
     {(formikBag: FormikProps<FormValues>) => (
       <>
         <div className="modal-body pl-4 pr-4">
-          {WithLabel<InputProps>({
-            Component: Input,
-            label: 'Title',
-            props: { htmlFor: 'title', placeholder: 'Title' },
-          })}
+          <Field name="title">
+            {() => (
+              <>
+                {WithLabel<InputProps>({
+                  Component: Input,
+                  label: 'Title',
+                  props: { htmlFor: 'title', placeholder: 'Title' },
+                })}
+              </>
+            )}
+          </Field>
+          <Field name="release-date">
+            {() => (
+              <>
+                {WithLabel<DateInputProps>({
+                  Component: DateInput,
+                  label: 'Release Date',
+                  props: { htmlFor: 'release-date', placeholder: 'Release Date' },
+                })}
+              </>
+            )}
+          </Field>
+          <Field name="movie-url">
+            {() => (
+              <>
+                {WithLabel<InputProps>({
+                  Component: Input,
+                  label: 'Movie URL',
+                  props: { htmlFor: 'movie-url', placeholder: 'Movie URL' },
+                })}
+              </>
+            )}
+          </Field>
+          <Field name="genre">
+            {() => (
+              <>
+                {WithLabel<SelectInputProps>({
+                  Component: SelectInput,
+                  label: 'Genre',
+                  props: { htmlFor: 'genre', placeholder: 'Genre', options: genres },
+                })}
+              </>
+            )}
+          </Field>
+          <Field name="overview">
+            {() => (
+              <>
+                {WithLabel<InputProps>({
+                  Component: Input,
+                  label: 'Overview',
+                  props: { htmlFor: 'overview', placeholder: 'Overview' },
+                })}
+              </>
+            )}
+          </Field>
+          <Field name="runtime">
+            {() => (
+              <>
+                {WithLabel<InputProps>({
+                  Component: Input,
+                  label: 'Runtime',
+                  props: { htmlFor: 'runtime', placeholder: 'Runtime' },
+                })}
+              </>
+            )}
+          </Field>
         </div>
         <div
           className={`modal-footer d-flex justify-content-end align-items-center ${classes.modal_footer}`}
