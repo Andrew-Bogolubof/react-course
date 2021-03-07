@@ -25,7 +25,9 @@ const FormLayout: React.FunctionComponent<FormLayoutProps> = ({
       <Button type={ButtonType.Close} name="Submit" onClickHandler={() => onCloseForm()} />
     </div>
     <div className="modal-body pl-5">{children}</div>
-    <div className={`modal-footer ${classes.modal_footer}`}>
+    <div
+      className={`modal-footer d-flex justify-content-end align-items-center ${classes.modal_footer}`}
+    >
       {cancelButtonTitle && (
         <Button type={ButtonType.Cancel} name="Reset" onClickHandler={() => {}} />
       )}

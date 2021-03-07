@@ -24,7 +24,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({ name, type, onClickHandl
   return (
     <button
       type="button"
-      className={`btn btn-primary p-2 pr-5 pl-5 ml-auto z-10 ${classes[getButtonClassName(type)]}`}
+      className={`btn btn-primary p-2 pr-5 pl-5 z-10 ${classes[getButtonClassName(type)]}`}
       onClick={() => onClickHandler()}
     >
       {name}

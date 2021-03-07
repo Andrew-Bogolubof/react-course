@@ -15,3 +15,18 @@
   justify-content: center;
   align-items: center;
 }
+
+.logo {
+  position: absolute;
+  left: 30px;
+  top: 17px;
+  z-index: 2010;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2010;
+}

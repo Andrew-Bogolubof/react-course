@@ -33,6 +33,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
                   <FormLayout
                     title="Add Movie"
                     confirmButtonTitle="Submit"
+                    cancelButtonTitle="Reset"
                     onCloseForm={() => setIsMovieAddModalOpened(false)}
                   />
                 </Modal>

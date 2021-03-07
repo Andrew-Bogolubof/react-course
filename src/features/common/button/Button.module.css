@@ -39,3 +39,19 @@
   outline: none;
   border: none;
 }
+
+.button_close:hover {
+  color: #f65261;
+}
+
+.button_cancel {
+  text-transform: uppercase;
+  color: #f65261;
+  border-color: #f65261;
+  background-color: transparent;
+}
+
+.button_cancel:hover {
+  background-color: #f6526065;
+  border-color: #f6526065;
+}
