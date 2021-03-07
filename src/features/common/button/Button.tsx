@@ -10,14 +10,14 @@ export interface ButtonProps {
 }
 
 const Button: React.FunctionComponent<ButtonProps> = ({ name, type, onClickHandler }) => {
-  if (type === ButtonType.Close) {
+  if (type === ButtonType.Close || type === ButtonType.CloseSmall) {
     return (
       <button
         type="button"
         className={`btn z-10 ${classes[getButtonClassName(type)]}`}
         onClick={() => onClickHandler()}
       >
-        <i className={`bi bi-x ${classes.icon}`} />
+        <i className={`bi bi-x ${type === ButtonType.Close ? classes.icon : classes.icon_small}`} />
       </button>
     );
   }

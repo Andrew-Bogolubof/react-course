@@ -29,6 +29,10 @@
   font-size: 40px;
 }
 
+.icon_small::before {
+  font-size: 20px;
+}
+
 .button_close {
   color: #fff;
   padding: 0;

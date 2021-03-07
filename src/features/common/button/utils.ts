@@ -9,6 +9,7 @@ export const getButtonClassName = (type: Button) => {
     case Button.Cancel:
       return 'button_cancel';
     case Button.Close:
+    case Button.CloseSmall:
       return 'button_close';
     default:
       return 'button_primary';

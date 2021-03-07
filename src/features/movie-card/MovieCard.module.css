@@ -15,4 +15,23 @@
   top: 40px;
   border-radius: 50%;
   background-color: #232323;
+  z-index: 1000;
+}
+
+.edit_container {
+  position: absolute;
+  right: 40px;
+  width: 150px;
+  top: 40px;
+  border-radius: 5px;
+  background-color: #232323;
+  z-index: 1010;
+}
+
+.edit_option {
+  cursor: pointer;
+}
+
+.edit_option:hover {
+  background-color: #f65261;
 }

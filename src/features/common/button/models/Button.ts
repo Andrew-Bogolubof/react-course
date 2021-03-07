@@ -3,4 +3,5 @@ export enum Button {
   Secondary = 'Secondary',
   Cancel = 'Cancel',
   Close = 'Close',
+  CloseSmall = 'CloseSmall',
 }

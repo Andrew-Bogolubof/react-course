@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useClickOutside } from '../../hooks';
 import { Movie } from '../../models';
+import { Button } from '../common/button';
+import { Button as ButtonType } from '../common/button/models';
 import { Image } from '../common/image';
 import classes from './MovieCard.module.css';
 
@@ -10,18 +13,38 @@ export interface MovieCardProps {
 const MovieCard: React.FunctionComponent<MovieCardProps> = ({
   movie: { poster_path, title, genres, release_date },
 }) => {
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isHoverShown, setIsHoverShown] = useState(false);
+  const [isEditOpened, setIsEditOpened] = useState(false);
+  const popupRef = useRef(null);
+  useClickOutside(popupRef, () => setIsEditOpened(false));
   const onMouseEnter = () => {
-    setIsEditOpen(true);
+    setIsHoverShown(true);
   };
   const onMouseLeave = () => {
-    setIsEditOpen(false);
+    setIsHoverShown(false);
+  };
+  const onOpenDetails = () => {
+    setIsEditOpened(true);
   };
 
-  const editHover = (
-    <button type="button" className={`btn btn-secondary ${classes.round_button}`}>
+  const detailsHover = (
+    <button
+      type="button"
+      className={`btn btn-secondary ${classes.round_button}`}
+      onClick={onOpenDetails}
+    >
       <i className="bi bi-three-dots-vertical" />
     </button>
+  );
+
+  const editHover = (
+    <div className={`d-flex flex-column pt-3 pb-3 ${classes.edit_container}`} ref={popupRef}>
+      <div className="align-self-end pr-3">
+        <Button type={ButtonType.CloseSmall} onClickHandler={() => setIsEditOpened(false)} />
+      </div>
+      <div className={`pl-3 p-2 ${classes.edit_option}`}>Edit</div>
+      <div className={`pl-3 p-2 ${classes.edit_option}`}>Delete</div>
+    </div>
   );
 
   return (
@@ -30,7 +53,8 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {isEditOpen && editHover}
+      {isHoverShown && detailsHover}
+      {isEditOpened && editHover}
 
       <Image src={poster_path} alt="Poster" />
       <div>
