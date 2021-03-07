@@ -4,6 +4,8 @@ import { Movie } from '../../models';
 import { Button } from '../common/button';
 import { Button as ButtonType } from '../common/button/models';
 import { Image } from '../common/image';
+import { Modal } from '../modal';
+import { ModalLayout } from '../modal-layout';
 import classes from './MovieCard.module.css';
 
 export interface MovieCardProps {
@@ -15,6 +17,8 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({
 }) => {
   const [isHoverShown, setIsHoverShown] = useState(false);
   const [isEditOpened, setIsEditOpened] = useState(false);
+  const [isEditFormOpened, setIsEditFormOpened] = useState(false);
+  const [isDeleteFormOpened, setIsDeleteFormOpened] = useState(false);
   const popupRef = useRef(null);
   useClickOutside(popupRef, () => setIsEditOpened(false));
   const onMouseEnter = () => {
@@ -37,13 +41,41 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({
     </button>
   );
 
+  const editFormModal = isEditFormOpened && (
+    <Modal>
+      <ModalLayout title="Add Movie" onCloseForm={() => setIsEditFormOpened(false)}>
+        hh
+      </ModalLayout>
+    </Modal>
+  );
+
+  const deleteFormModal = isDeleteFormOpened && (
+    <Modal>
+      <ModalLayout title="Add Movie" onCloseForm={() => setIsDeleteFormOpened(false)}>
+        hh
+      </ModalLayout>
+    </Modal>
+  );
+
   const editHover = (
     <div className={`d-flex flex-column pt-3 pb-3 ${classes.edit_container}`} ref={popupRef}>
       <div className="align-self-end pr-3">
         <Button type={ButtonType.CloseSmall} onClickHandler={() => setIsEditOpened(false)} />
       </div>
-      <div className={`pl-3 p-2 ${classes.edit_option}`}>Edit</div>
-      <div className={`pl-3 p-2 ${classes.edit_option}`}>Delete</div>
+      <button
+        type="button"
+        onClick={() => setIsEditFormOpened(true)}
+        className={`pl-3 p-2 text-left h6 ${classes.edit_option}`}
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        onClick={() => setIsDeleteFormOpened(true)}
+        className={`pl-3 p-2 text-left h6 ${classes.edit_option}`}
+      >
+        Delete
+      </button>
     </div>
   );
 
@@ -54,8 +86,9 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({
       onMouseLeave={onMouseLeave}
     >
       {isHoverShown && detailsHover}
+      {editFormModal}
       {isEditOpened && editHover}
-
+      {deleteFormModal}
       <Image src={poster_path} alt="Poster" />
       <div>
         <div className="row mt-2 mr-2 ml-2 justify-content-between align-items-center">
