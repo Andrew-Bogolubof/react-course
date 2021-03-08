@@ -7,7 +7,7 @@ import { Button as ButtonType } from '../common/button/models';
 import { Modal } from '../modal';
 import { ModalLayout } from '../modal-layout';
 import { Logo } from '../common/logo';
-import { AddMovieForm } from '../add-movie-form';
+import { AddEditMovieForm } from '../add-movie-form';
 
 export interface HeaderProps {}
 
@@ -35,7 +35,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
                     title="Add Movie"
                     onCloseForm={() => setIsMovieAddModalOpened(false)}
                   >
-                    <AddMovieForm />
+                    <AddEditMovieForm />
                   </ModalLayout>
                 </Modal>
               )}
@@ -49,7 +49,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
             </div>
           </div>
           <div className="row">
-            <Input placeholder="What do you want to watch?" />
+            <Input placeholder="What do you want to watch?" onChangeHandler={() => {}} />
             <Button name="Search" type={ButtonType.Primary} onClickHandler={() => {}} />
           </div>
         </div>

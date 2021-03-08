@@ -1,3 +1,3 @@
-import AddMovieForm from './AddMovieForm';
+import AddEditMovieForm from './AddEditMovieForm';
 
-export { AddMovieForm };
+export { AddEditMovieForm };

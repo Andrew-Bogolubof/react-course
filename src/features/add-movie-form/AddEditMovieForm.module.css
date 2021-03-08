@@ -1,3 +1,7 @@
+.modal_footer {
+  border-top: none;
+}
+
 .label {
   color: #f65261;
   text-transform: uppercase;
@@ -6,8 +10,4 @@
 
 .container {
   padding-bottom: 15px;
-}
-
-.input {
-  min-height: 40px;
 }

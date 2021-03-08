@@ -1,6 +1,6 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikProps } from 'formik';
-import classes from './AddMovieForm.module.css';
+import { Formik, Field, FormikProps } from 'formik';
+import classes from './AddEditMovieForm.module.css';
 import { Button as ButtonType } from '../common/button/models';
 import { Button } from '../common/button';
 import { Input } from '../common/input';
@@ -11,8 +11,11 @@ import { DateInputProps } from '../common/date-input/DateInput';
 import SelectInput, { SelectInputProps } from '../common/select-input/SelectInput';
 // TODO: remove mock movies and genres
 import moviesList from '../../mocks/movies.json';
+import { Movie } from '../../models';
+import { Textarea } from '../common/textarea';
+import type { TextareaProps } from '../common/textarea/Textarea';
 
-const genres = Array.from(
+const genresList = Array.from(
   moviesList
     .reduce<Set<string>>((acc, movie) => {
       movie.genres.forEach((genre) => acc.add(genre));
@@ -21,52 +24,31 @@ const genres = Array.from(
     .values()
 ).slice(0, 6);
 
-export interface AddMovieFormProps {}
+export interface AddMovieFormProps {
+  movie?: Movie;
+}
 
 type FormValues = {
-  name: string;
-  price: string;
-  manufacturer: string;
-  inStock: string;
-  description: string;
-  shortDescription: string;
-  category: string;
+  title: string;
+  releaseDate: string;
+  movieUrl: string;
+  genres: string[];
+  overview: string;
+  runtime: number | string;
 };
 
-const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
+const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = ({ movie }) => (
   <Formik
     initialValues={{
-      name: '',
-      price: '',
-      manufacturer: '',
-      inStock: '',
-      description: '',
-      shortDescription: '',
-      category: '',
+      title: movie?.title ?? '',
+      releaseDate: movie?.release_date ?? '',
+      movieUrl: movie?.poster_path ?? '',
+      genres: movie?.genres ?? genresList,
+      overview: movie?.overview ?? '',
+      runtime: movie?.runtime ?? '',
     }}
     validate={(values) => {
       const errors: Partial<FormValues> = {};
-      if (!values.name) {
-        errors.name = 'Name is Required';
-      }
-      if (!values.price) {
-        errors.price = 'Price is Required';
-      }
-      if (!values.inStock) {
-        errors.inStock = 'In Stock is Required';
-      }
-      if (!values.manufacturer) {
-        errors.manufacturer = 'Manufacturer is Required';
-      }
-      if (!values.description) {
-        errors.description = 'Description is Required';
-      }
-      if (!values.shortDescription) {
-        errors.shortDescription = 'Short Description is Required';
-      }
-      if (!values.category) {
-        errors.category = 'Category is Required';
-      }
 
       return errors;
     }}
@@ -75,13 +57,24 @@ const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
     {(formikBag: FormikProps<FormValues>) => (
       <>
         <div className="modal-body pl-4 pr-4">
+          {movie && (
+            <div className={`${classes.container}`}>
+              <div className={`pl-4 pb-1 text-uppercase ${classes.label}`}>Movie id</div>
+              <div className="pl-4 text-uppercase">{movie.id}</div>
+            </div>
+          )}
           <Field name="title">
             {() => (
               <>
                 {WithLabel<InputProps>({
                   Component: Input,
                   label: 'Title',
-                  props: { htmlFor: 'title', placeholder: 'Title' },
+                  props: {
+                    htmlFor: 'title',
+                    placeholder: 'Title',
+                    value: formikBag.values.title,
+                    onChangeHandler: () => {},
+                  },
                 })}
               </>
             )}
@@ -92,7 +85,12 @@ const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
                 {WithLabel<DateInputProps>({
                   Component: DateInput,
                   label: 'Release Date',
-                  props: { htmlFor: 'release-date', placeholder: 'Release Date' },
+                  props: {
+                    htmlFor: 'release-date',
+                    placeholder: 'Release Date',
+                    value: formikBag.values.releaseDate,
+                    onChangeHandler: () => {},
+                  },
                 })}
               </>
             )}
@@ -103,7 +101,12 @@ const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
                 {WithLabel<InputProps>({
                   Component: Input,
                   label: 'Movie URL',
-                  props: { htmlFor: 'movie-url', placeholder: 'Movie URL' },
+                  props: {
+                    htmlFor: 'movie-url',
+                    placeholder: 'Movie URL',
+                    value: formikBag.values.movieUrl,
+                    onChangeHandler: () => {},
+                  },
                 })}
               </>
             )}
@@ -114,7 +117,13 @@ const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
                 {WithLabel<SelectInputProps>({
                   Component: SelectInput,
                   label: 'Genre',
-                  props: { htmlFor: 'genre', placeholder: 'Genre', options: genres },
+                  props: {
+                    htmlFor: 'genre',
+                    placeholder: 'Genre',
+                    options: genresList,
+                    selectedOptions: formikBag.values.genres,
+                    onChangeHandler: () => {},
+                  },
                 })}
               </>
             )}
@@ -122,10 +131,15 @@ const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
           <Field name="overview">
             {() => (
               <>
-                {WithLabel<InputProps>({
-                  Component: Input,
+                {WithLabel<TextareaProps>({
+                  Component: Textarea,
                   label: 'Overview',
-                  props: { htmlFor: 'overview', placeholder: 'Overview' },
+                  props: {
+                    htmlFor: 'overview',
+                    placeholder: 'Overview',
+                    value: formikBag.values.overview,
+                    onChangeHandler: () => {},
+                  },
                 })}
               </>
             )}
@@ -136,7 +150,12 @@ const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = () => (
                 {WithLabel<InputProps>({
                   Component: Input,
                   label: 'Runtime',
-                  props: { htmlFor: 'runtime', placeholder: 'Runtime' },
+                  props: {
+                    htmlFor: 'runtime',
+                    placeholder: 'Runtime',
+                    value: formikBag.values.runtime,
+                    onChangeHandler: () => {},
+                  },
                 })}
               </>
             )}

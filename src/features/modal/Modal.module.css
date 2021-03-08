@@ -13,7 +13,7 @@
 .modal_inner {
   position: relative;
   padding: 100px;
-  height: auto;
+  min-height: 100%;
 }
 
 .modal_dialog {

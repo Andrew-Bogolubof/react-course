@@ -1,30 +1,29 @@
 import * as React from 'react';
-import classes from './DateInput.module.css';
+import classes from './Textarea.module.css';
 
-export interface DateInputProps {
+export interface TextareaProps {
   placeholder: string;
   htmlFor?: string;
   value?: string;
   onChangeHandler: () => void;
 }
 
-const DateInput: React.FunctionComponent<DateInputProps> = ({
+const Textarea: React.FunctionComponent<TextareaProps> = ({
   placeholder,
   htmlFor,
   value,
   onChangeHandler,
 }) => (
   <div className="col input-group">
-    <input
-      type="date"
+    <textarea
       id={htmlFor}
-      className={`form-control ${classes.input}`}
-      placeholder={placeholder}
+      className={`form-control ${classes.textarea}`}
       aria-label="Server"
-      value={value}
       onChange={onChangeHandler}
-    />
+    >
+      {value ?? placeholder}
+    </textarea>
   </div>
 );
 
-export default DateInput;
+export default Textarea;

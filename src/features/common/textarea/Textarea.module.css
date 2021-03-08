@@ -1,0 +1,26 @@
+.textarea {
+  background-color: #232323;
+  color: #555;
+  outline: none;
+  border-width: 0;
+  overflow: auto;
+}
+
+.textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+.textarea::-webkit-scrollbar-track {
+  background: #232323;
+}
+.textarea::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+.textarea:focus {
+  background-color: #232323;
+  color: #555;
+  outline: none;
+  min-height: 100%;
+  border-width: 0;
+}
