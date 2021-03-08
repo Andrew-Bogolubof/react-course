@@ -1,11 +1,13 @@
 import * as React from 'react';
+import { TextColor } from '../models';
 import classes from './Textarea.module.css';
 
 export interface TextareaProps {
   placeholder: string;
   htmlFor?: string;
   value?: string;
-  onChangeHandler: () => void;
+  onChangeHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  color?: TextColor;
 }
 
 const Textarea: React.FunctionComponent<TextareaProps> = ({
@@ -13,16 +15,17 @@ const Textarea: React.FunctionComponent<TextareaProps> = ({
   htmlFor,
   value,
   onChangeHandler,
+  color,
 }) => (
   <div className="col input-group">
     <textarea
       id={htmlFor}
-      className={`form-control ${classes.textarea}`}
+      placeholder={placeholder}
+      className={`form-control ${classes.textarea} ${color ? classes[color] : classes.white}`}
       aria-label="Server"
       onChange={onChangeHandler}
-    >
-      {value ?? placeholder}
-    </textarea>
+      value={value}
+    />
   </div>
 );
 

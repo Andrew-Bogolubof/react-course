@@ -1,30 +1,32 @@
 import * as React from 'react';
+import { TextColor } from '../models';
 import classes from './SelectInput.module.css';
 
 export interface SelectInputProps {
-  placeholder: string;
   htmlFor?: string;
   options: string[];
   selectedOptions?: string[];
-  onChangeHandler: () => void;
+  onChangeHandler: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  color?: TextColor;
 }
 
 const SelectInput: React.FunctionComponent<SelectInputProps> = ({
-  placeholder,
   htmlFor,
   options,
   onChangeHandler,
+  color,
+  selectedOptions,
 }) => (
   <div className="col input-group">
     <select
-      className={`form-select custom-select ${classes.input}`}
+      className={`form-select custom-select ${classes.input} ${
+        color ? classes[color] : classes.white
+      }`}
       id={htmlFor}
       onChange={onChangeHandler}
     >
       {options.map((option) => (
-        <option key={option} selected>
-          {option}
-        </option>
+        <option key={option}>{option}</option>
       ))}
     </select>
   </div>

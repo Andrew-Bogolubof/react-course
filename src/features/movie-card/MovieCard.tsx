@@ -44,7 +44,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const editFormModal = (editMovie: Movie) =>
     isEditFormOpened && (
       <Modal>
-        <ModalLayout title="Add Movie" onCloseForm={() => setIsEditFormOpened(false)}>
+        <ModalLayout title="Edit Movie" onCloseForm={() => setIsEditFormOpened(false)}>
           <AddEditMovieForm movie={editMovie} />
         </ModalLayout>
       </Modal>
@@ -53,7 +53,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const deleteFormModal = (id: number) =>
     isDeleteFormOpened && (
       <Modal>
-        <ModalLayout title="Add Movie" onCloseForm={() => setIsDeleteFormOpened(false)}>
+        <ModalLayout title="Delete Movie" onCloseForm={() => setIsDeleteFormOpened(false)}>
           <DeleteMovieForm id={id} onDeleteHandler={() => {}} />
         </ModalLayout>
       </Modal>

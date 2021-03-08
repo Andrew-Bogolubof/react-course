@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classes from './Header.module.css';
-import { Input } from '../common/input';
+import { Input } from '../common/forms/input';
 import { Button } from '../common/button';
 import { ErrorBoundary } from '../error-boundary';
 import { Button as ButtonType } from '../common/button/models';
@@ -8,6 +8,7 @@ import { Modal } from '../modal';
 import { ModalLayout } from '../modal-layout';
 import { Logo } from '../common/logo';
 import { AddEditMovieForm } from '../add-movie-form';
+import { TextColor } from '../common/forms/models';
 
 export interface HeaderProps {}
 
@@ -49,7 +50,11 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
             </div>
           </div>
           <div className="row">
-            <Input placeholder="What do you want to watch?" onChangeHandler={() => {}} />
+            <Input
+              placeholder="What do you want to watch?"
+              onChangeHandler={() => {}}
+              color={TextColor.Gray}
+            />
             <Button name="Search" type={ButtonType.Primary} onClickHandler={() => {}} />
           </div>
         </div>

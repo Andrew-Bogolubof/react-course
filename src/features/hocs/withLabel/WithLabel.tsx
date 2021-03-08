@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classes from './WithLabel.module.css';
 
-export type WithLabelType = <TProps extends { htmlFor?: string; placeholder: string }>(arg: {
+export type WithLabelType = <TProps extends { htmlFor?: string; placeholder?: string }>(arg: {
   Component: React.FunctionComponent<React.PropsWithChildren<TProps>>;
   label: string;
   props: TProps;

@@ -24,3 +24,15 @@
   min-height: 100%;
   border-width: 0;
 }
+
+.white,
+.white::placeholder,
+.white:focus {
+  color: white;
+}
+
+.gray,
+.gray::placeholder,
+.gray:focus {
+  color: #555;
+}
