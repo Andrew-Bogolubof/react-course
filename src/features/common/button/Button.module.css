@@ -1,0 +1,61 @@
+.button_primary {
+  background-color: #f65261;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  border-width: 0;
+  z-index: 1000;
+}
+
+.button_primary:hover {
+  background-color: #f6526088;
+}
+
+.button_secondary {
+  background-color: #555;
+  opacity: 0.5;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  z-index: 1000;
+  border-width: 0;
+}
+
+.button_secondary:hover {
+  background-color: #f65261;
+}
+
+.icon::before {
+  font-size: 40px;
+}
+
+.icon_small::before {
+  font-size: 20px;
+}
+
+.button_close {
+  color: #fff;
+  padding: 0;
+  border: none;
+}
+
+.button_close:focus {
+  outline: none;
+  border: none;
+}
+
+.button_close:hover {
+  color: #f65261;
+}
+
+.button_cancel {
+  text-transform: uppercase;
+  color: #f65261;
+  border-color: #f65261;
+  background-color: transparent;
+}
+
+.button_cancel:hover {
+  background-color: #f6526065;
+  border-color: #f6526065;
+}

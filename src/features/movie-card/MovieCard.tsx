@@ -1,27 +1,84 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useClickOutside } from '../../hooks';
 import { Movie } from '../../models';
+import { AddEditMovieForm } from '../add-movie-form';
+import { Button } from '../common/button';
+import { Button as ButtonType } from '../common/button/models';
 import { Image } from '../common/image';
+import { DeleteMovieForm } from '../delete-movie-form';
+import { Modal } from '../modal';
+import { ModalLayout } from '../modal-layout';
 import classes from './MovieCard.module.css';
 
 export interface MovieCardProps {
   movie: Movie;
 }
 
-const MovieCard: React.FunctionComponent<MovieCardProps> = ({
-  movie: { poster_path, title, genres, release_date },
-}) => {
-  const [isEditOpen, setIsEditOpen] = useState(false);
+const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
+  const [isHoverShown, setIsHoverShown] = useState(false);
+  const [isEditOpened, setIsEditOpened] = useState(false);
+  const [isEditFormOpened, setIsEditFormOpened] = useState(false);
+  const [isDeleteFormOpened, setIsDeleteFormOpened] = useState(false);
+  const popupRef = useRef(null);
+  useClickOutside(popupRef, () => setIsEditOpened(false));
   const onMouseEnter = () => {
-    setIsEditOpen(true);
+    setIsHoverShown(true);
   };
   const onMouseLeave = () => {
-    setIsEditOpen(false);
+    setIsHoverShown(false);
+  };
+  const onOpenDetails = () => {
+    setIsEditOpened(true);
   };
 
-  const editHover = (
-    <button type="button" className={`btn btn-secondary ${classes.round_button}`}>
+  const detailsHover = (
+    <button
+      type="button"
+      className={`btn btn-secondary ${classes.round_button}`}
+      onClick={onOpenDetails}
+    >
       <i className="bi bi-three-dots-vertical" />
     </button>
+  );
+
+  const editFormModal = (editMovie: Movie) =>
+    isEditFormOpened && (
+      <Modal>
+        <ModalLayout title="Edit Movie" onCloseForm={() => setIsEditFormOpened(false)}>
+          <AddEditMovieForm movie={editMovie} />
+        </ModalLayout>
+      </Modal>
+    );
+
+  const deleteFormModal = (id: number) =>
+    isDeleteFormOpened && (
+      <Modal>
+        <ModalLayout title="Delete Movie" onCloseForm={() => setIsDeleteFormOpened(false)}>
+          <DeleteMovieForm id={id} onDeleteHandler={() => {}} />
+        </ModalLayout>
+      </Modal>
+    );
+
+  const editHover = (
+    <div className={`d-flex flex-column pt-3 pb-3 ${classes.edit_container}`} ref={popupRef}>
+      <div className="align-self-end pr-3">
+        <Button type={ButtonType.CloseSmall} onClickHandler={() => setIsEditOpened(false)} />
+      </div>
+      <button
+        type="button"
+        onClick={() => setIsEditFormOpened(true)}
+        className={`pl-3 p-2 text-left h6 ${classes.edit_option}`}
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        onClick={() => setIsDeleteFormOpened(true)}
+        className={`pl-3 p-2 text-left h6 ${classes.edit_option}`}
+      >
+        Delete
+      </button>
+    </div>
   );
 
   return (
@@ -30,16 +87,18 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {isEditOpen && editHover}
-
-      <Image src={poster_path} alt="Poster" />
+      {isHoverShown && detailsHover}
+      {editFormModal(movie)}
+      {isEditOpened && editHover}
+      {deleteFormModal(movie.id)}
+      <Image src={movie.poster_path} alt="Poster" />
       <div>
         <div className="row mt-2 mr-2 ml-2 justify-content-between align-items-center">
-          <div className="h5">{title}</div>
-          <div className={`h6 ${classes.year}`}>{new Date(release_date).getFullYear()}</div>
+          <div className="h5">{movie.title}</div>
+          <div className={`h6 ${classes.year}`}>{new Date(movie.release_date).getFullYear()}</div>
         </div>
         <div className="row mr-2 ml-2">
-          <div className="sm text-muted text-wrap">{genres.join(', ')}</div>
+          <div className="sm text-muted text-wrap">{movie.genres.join(', ')}</div>
         </div>
       </div>
     </div>

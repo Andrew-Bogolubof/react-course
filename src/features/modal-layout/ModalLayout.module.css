@@ -1,0 +1,9 @@
+.modal_content {
+  background-color: #424242;
+  color: #fff;
+  margin-bottom: 70px;
+}
+
+.modal_header {
+  border-bottom: none;
+}
