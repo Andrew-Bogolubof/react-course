@@ -9,7 +9,7 @@ export interface ButtonProps {
   onClickHandler: () => void;
 }
 
-const Button: React.FunctionComponent<ButtonProps> = ({ name, type, onClickHandler }) => {
+const Button: React.FunctionComponent<ButtonProps> = ({ name, type, onClickHandler, children }) => {
   if (type === ButtonType.Close || type === ButtonType.CloseSmall) {
     return (
       <button
@@ -18,6 +18,17 @@ const Button: React.FunctionComponent<ButtonProps> = ({ name, type, onClickHandl
         onClick={() => onClickHandler()}
       >
         <i className={`bi bi-x ${type === ButtonType.Close ? classes.icon : classes.icon_small}`} />
+      </button>
+    );
+  }
+  if (type === ButtonType.Empty) {
+    return (
+      <button
+        type="button"
+        className={`btn z-10 ${classes[getButtonClassName(type)]}`}
+        onClick={() => onClickHandler()}
+      >
+        {children} {name}
       </button>
     );
   }

@@ -1,0 +1,19 @@
+.container {
+  min-height: 350px;
+  z-index: 1000;
+  color: #fff;
+}
+
+.emphasized_info {
+  font-size: 24px;
+  color: #f65261;
+}
+
+.rating {
+  height: 60px;
+  width: 60px;
+  font-size: 20px;
+  border-radius: 50%;
+  border: 1px #fff solid;
+  color: #80b859;
+}
