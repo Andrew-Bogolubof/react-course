@@ -9,5 +9,5 @@ export enum RootActions {
 export const setMovies = createAction<Movie[]>(RootActions.SET_MOVIES);
 export type SetMovies = ReturnType<typeof setMovies>;
 
-export const fetchMovies = createAction<unknown>(RootActions.FETCH_MOVIES);
+export const fetchMovies = createAction(RootActions.FETCH_MOVIES);
 export type FetchMovies = ReturnType<typeof fetchMovies>;

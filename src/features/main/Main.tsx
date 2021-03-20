@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { ErrorBoundary } from '../error-boundary';
 import classes from './Main.module.css';
 import { MovieCard } from '../movie-card';
@@ -7,6 +8,8 @@ import { MovieCard } from '../movie-card';
 import moviesList from '../../mocks/movies.json';
 import { DropDown } from '../common/toggle';
 import { SortLineList } from '../common/sort-line-list';
+import { useSelector } from '../../store';
+import { fetchMovies } from '../../store/actions';
 
 const genres = Array.from(
   moviesList
@@ -20,7 +23,12 @@ const genres = Array.from(
 export interface MainProps {}
 
 const Main: React.FunctionComponent<MainProps> = () => {
-  const [movies] = useState(moviesList.slice(1, 7));
+  const dispatch = useDispatch();
+  const movies = useSelector((state) => state.movies);
+
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, [dispatch]);
   return (
     <main className={`container-fluid ${classes.main}`}>
       <ErrorBoundary>

@@ -9,7 +9,9 @@ const fetchMovies: Epic<FetchMovies, SetMovies, Movie[]> = (action$) =>
   action$.pipe(
     ofType<FetchMovies>(RootActions.FETCH_MOVIES),
     mergeMap(() =>
-      ajax.getJSON<Movie[]>(`${Config.API.URL}/movies`).pipe(map((response) => setMovies(response)))
+      ajax
+        .getJSON<{ data: Movie[] }>(`${Config.API.URL}/movies?limit=6`)
+        .pipe(map((response) => setMovies(response.data)))
     )
   );
 

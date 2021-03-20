@@ -1,5 +1,5 @@
 export const Config = {
   API: {
-    URL: process.env.API_URL,
+    URL: process.env.REACT_APP_API_URL,
   },
 };
