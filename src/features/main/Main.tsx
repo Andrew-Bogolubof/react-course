@@ -9,7 +9,7 @@ import moviesList from '../../mocks/movies.json';
 import { DropDown } from '../common/toggle';
 import { SortLineList } from '../common/sort-line-list';
 import { useSelector } from '../../store';
-import { fetchMovies } from '../../store/actions';
+import { fetchMovies } from '../../store/actions/movies-actions';
 
 const genres = Array.from(
   moviesList
@@ -25,10 +25,11 @@ export interface MainProps {}
 const Main: React.FunctionComponent<MainProps> = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies);
+  const query = useSelector((state) => state.sortingOptions);
 
   useEffect(() => {
-    dispatch(fetchMovies());
-  }, [dispatch]);
+    dispatch(fetchMovies(query));
+  }, [dispatch, query]);
   return (
     <main className={`container-fluid ${classes.main}`}>
       <ErrorBoundary>
