@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ErrorBoundary } from '../error-boundary';
 import classes from './Main.module.css';
@@ -11,6 +11,8 @@ import { SortLineList } from '../common/sort-line-list';
 import { useSelector } from '../../store';
 import { fetchMovies } from '../../store/actions/movies-actions';
 import { SortBy } from '../../models';
+import { setSortBy } from '../../store/actions/sorting-actions';
+import { mapSortByFieldToSortBy } from '../../models/mappers';
 
 const genres = Array.from(
   moviesList
@@ -27,10 +29,18 @@ const Main: React.FunctionComponent<MainProps> = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies);
   const query = useSelector((state) => state.sortingOptions);
+  const option = useSelector((state) => state.sortingOptions.sortBy);
 
   useEffect(() => {
     dispatch(fetchMovies(query));
   }, [dispatch, query]);
+
+  const selectSortBy = useCallback(
+    (selectedOption: string) => {
+      dispatch(setSortBy({ sortBy: selectedOption }));
+    },
+    [dispatch]
+  );
   return (
     <main className={`container-fluid ${classes.main}`}>
       <ErrorBoundary>
@@ -42,7 +52,11 @@ const Main: React.FunctionComponent<MainProps> = () => {
             <div className="col-sm d-flex justify-content-end align-items-center">
               <div className="sm text-muted">Sort By</div>
               <div className="col-smd">
-                <DropDown options={Object.values(SortBy)} />
+                <DropDown
+                  option={mapSortByFieldToSortBy(option) as string}
+                  options={Object.values(SortBy)}
+                  onClickHandler={selectSortBy}
+                />
               </div>
             </div>
           </div>

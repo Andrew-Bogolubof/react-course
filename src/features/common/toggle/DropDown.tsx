@@ -1,24 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useClickOutside } from '../../../hooks';
-import { mapSortByFieldToSortBy } from '../../../models/mappers';
-import { useSelector } from '../../../store';
-import { setSortBy } from '../../../store/actions/sorting-actions';
 import classes from './DropDown.module.css';
 
 export interface DropDownProps {
   options: string[];
-  // onClickHandler?: () => void;
+  option: string;
+  onClickHandler: (selectedOption: string) => void;
 }
 
-const DropDown: React.FunctionComponent<DropDownProps> = ({ options }) => {
+const DropDown: React.FunctionComponent<DropDownProps> = ({ options, option, onClickHandler }) => {
   const [isOptionModalOpened, setIsOptionModalOpened] = useState(false);
-  const option = useSelector((state) => state.sortingOptions.sortBy);
-  const dispatch = useDispatch();
   const popupRef = useRef(null);
   useClickOutside(popupRef, () => setIsOptionModalOpened(false));
   const setDropDownOption = (selectedOption: string) => {
-    dispatch(setSortBy({ sortBy: selectedOption }));
+    onClickHandler(selectedOption);
   };
 
   const modal = (
@@ -53,7 +48,7 @@ const DropDown: React.FunctionComponent<DropDownProps> = ({ options }) => {
         aria-haspopup="true"
         aria-expanded="false"
       >
-        {mapSortByFieldToSortBy(option)}
+        {option}
         {isOptionModalOpened && modal}
       </button>
     </div>
