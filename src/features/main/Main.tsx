@@ -10,6 +10,7 @@ import { DropDown } from '../common/toggle';
 import { SortLineList } from '../common/sort-line-list';
 import { useSelector } from '../../store';
 import { fetchMovies } from '../../store/actions/movies-actions';
+import { SortBy } from '../../models';
 
 const genres = Array.from(
   moviesList
@@ -41,7 +42,7 @@ const Main: React.FunctionComponent<MainProps> = () => {
             <div className="col-sm d-flex justify-content-end align-items-center">
               <div className="sm text-muted">Sort By</div>
               <div className="col-smd">
-                <DropDown options={['someOption']} />
+                <DropDown options={Object.values(SortBy)} />
               </div>
             </div>
           </div>

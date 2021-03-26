@@ -1,8 +1,12 @@
 import { handleActions } from 'redux-actions';
-import { FetchMovieQuery, SortBy, SortOrder } from '../../models';
+import { FetchMovieQuery, SortBy, SortByField, SortOrder } from '../../models';
+import { mapSortByToSortByField } from '../../models/mappers';
 import { SortingActions } from '../actions/sorting-actions';
 
-export const sortingReducer = handleActions<FetchMovieQuery, FetchMovieQuery>(
+export const sortingReducer = handleActions<
+  FetchMovieQuery,
+  Omit<FetchMovieQuery, 'sortBy'> & { sortBy: SortBy }
+>(
   {
     [SortingActions.SET_GENRE]: (state, action) => ({
       ...state,
@@ -18,7 +22,7 @@ export const sortingReducer = handleActions<FetchMovieQuery, FetchMovieQuery>(
     }),
     [SortingActions.SET_SORT_BY]: (state, action) => ({
       ...state,
-      genre: action.payload.sortBy ?? '',
+      sortBy: mapSortByToSortByField(action.payload.sortBy),
     }),
     [SortingActions.SET_LIMIT]: (state, action) => ({
       ...state,
@@ -30,7 +34,7 @@ export const sortingReducer = handleActions<FetchMovieQuery, FetchMovieQuery>(
     }),
   },
   {
-    sortBy: 'title',
+    sortBy: SortByField.TITLE,
     sortOrder: SortOrder.ASC,
     search: '',
     searchBy: SortBy.TITLE,

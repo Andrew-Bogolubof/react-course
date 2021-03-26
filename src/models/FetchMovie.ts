@@ -1,16 +1,21 @@
-import { Movie } from './Movie';
-
 export enum SortOrder {
   DESC = 'desc',
   ASC = 'asc',
 }
 export enum SortBy {
   TITLE = 'title',
-  GENRES = 'genres',
+  RATING = 'rating',
+  RELEASE_DATE = 'release date',
+}
+
+export enum SortByField {
+  TITLE = 'title',
+  RATING = 'vote_count',
+  RELEASE_DATE = 'release_date',
 }
 
 export type FetchMovieQuery = {
-  sortBy?: keyof Movie;
+  sortBy?: SortByField;
   sortOrder?: SortOrder;
   search?: string;
   searchBy?: SortBy;
