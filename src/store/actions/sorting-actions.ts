@@ -12,3 +12,6 @@ export enum SortingActions {
 
 export const setSortBy = createAction<{ sortBy: string }>(SortingActions.SET_SORT_BY);
 export type SetSortBy = ReturnType<typeof setSortBy>;
+
+export const setGenre = createAction<{ genre: string }>(SortingActions.SET_GENRE);
+export type SetGenre = ReturnType<typeof setGenre>;

@@ -10,8 +10,8 @@ import { DropDown } from '../common/toggle';
 import { SortLineList } from '../common/sort-line-list';
 import { useSelector } from '../../store';
 import { fetchMovies } from '../../store/actions/movies-actions';
-import { SortBy } from '../../models';
-import { setSortBy } from '../../store/actions/sorting-actions';
+import { SearchBy, SortBy } from '../../models';
+import { setGenre, setSortBy } from '../../store/actions/sorting-actions';
 import { mapSortByFieldToSortBy } from '../../models/mappers';
 
 const genres = Array.from(
@@ -30,6 +30,9 @@ const Main: React.FunctionComponent<MainProps> = () => {
   const movies = useSelector((state) => state.movies);
   const query = useSelector((state) => state.sortingOptions);
   const option = useSelector((state) => state.sortingOptions.sortBy);
+  const genreItem = useSelector((state) =>
+    state.sortingOptions.searchBy === SearchBy.GENRES ? state.sortingOptions.filter : ''
+  );
 
   useEffect(() => {
     dispatch(fetchMovies(query));
@@ -41,13 +44,24 @@ const Main: React.FunctionComponent<MainProps> = () => {
     },
     [dispatch]
   );
+
+  const selectGenre = useCallback(
+    (selectedGenre: string) => {
+      dispatch(setGenre({ genre: selectedGenre }));
+    },
+    [dispatch]
+  );
   return (
     <main className={`container-fluid ${classes.main}`}>
       <ErrorBoundary>
         <div className="container-xl">
           <div className={`row d-flex align-items-center ${classes.movies_sort}`}>
             <div className={`col-sm p-3 d-flex ${classes.sort_row}`}>
-              <SortLineList list={genres} />
+              <SortLineList
+                list={['All', ...genres]}
+                item={genreItem ? genreItem[0] ?? 'All' : 'All'}
+                onClickHandler={selectGenre}
+              />
             </div>
             <div className="col-sm d-flex justify-content-end align-items-center">
               <div className="sm text-muted">Sort By</div>

@@ -2,6 +2,11 @@ export enum SortOrder {
   DESC = 'desc',
   ASC = 'asc',
 }
+export enum SearchBy {
+  TITLE = 'title',
+  GENRES = 'genres',
+}
+
 export enum SortBy {
   TITLE = 'title',
   RATING = 'rating',
@@ -18,7 +23,7 @@ export type FetchMovieQuery = {
   sortBy?: SortByField;
   sortOrder?: SortOrder;
   search?: string;
-  searchBy?: SortBy;
+  searchBy?: SearchBy;
   filter?: string[];
   offset?: string;
   limit?: string;

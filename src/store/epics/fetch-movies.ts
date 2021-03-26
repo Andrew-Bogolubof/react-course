@@ -20,7 +20,7 @@ const fetchMovies: Epic<Input, SetMovies, AppState> = (action$, state$) =>
           }
           return value;
         })
-        .map(([key, value]) => `${key}=${value}`)
+        .map(([key, value]) => `${key}=${Array.isArray(value) ? value.join(',') : value}`)
         .join('&');
       return ajax
         .getJSON<{ data: Movie[] }>(`${Config.API.URL}/movies?${query}`)
