@@ -1,7 +1,7 @@
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
+import axios from 'axios';
 import { Epic, ofType } from 'redux-observable';
 import { mergeMap } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
 import { Config } from '../../config';
 import { DeleteMovie, MoviesActions } from '../actions/movies-actions';
 // eslint-disable-next-line import/no-cycle
@@ -11,9 +11,9 @@ type Input = DeleteMovie;
 
 const deleteMovie: Epic<Input, Input, AppState> = (action$) =>
   action$.pipe(
-    ofType<Input>(MoviesActions.CREATE_MOVIE),
+    ofType<Input>(MoviesActions.DELETE_MOVIE),
     mergeMap((action: DeleteMovie) => {
-      ajax.delete(`${Config.API.URL}/movies/${action.payload.id}`);
+      of(axios.delete(`${Config.API.URL}/movies/${action.payload.id}`)).subscribe();
       return EMPTY;
     })
   );

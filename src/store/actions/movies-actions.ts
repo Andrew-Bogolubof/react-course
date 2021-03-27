@@ -15,7 +15,9 @@ export type SetMovies = ReturnType<typeof setMovies>;
 export const fetchMovies = createAction<FetchMovieQuery>(MoviesActions.FETCH_MOVIES);
 export type FetchMovies = ReturnType<typeof fetchMovies>;
 
-export const createMovie = createAction<Movie>(MoviesActions.CREATE_MOVIE);
+export const createMovie = createAction<
+  Pick<Movie, 'title' | 'release_date' | 'poster_path' | 'genres' | 'overview' | 'runtime'>
+>(MoviesActions.CREATE_MOVIE);
 export type CreateMovie = ReturnType<typeof createMovie>;
 
 export const updateMovie = createAction<Omit<Partial<Movie>, 'id'> & { id: number }>(

@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { Epic, ofType } from 'redux-observable';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
 import { Config } from '../../config';
 import { CreateMovie, MoviesActions } from '../actions/movies-actions';
 // eslint-disable-next-line import/no-cycle
@@ -13,7 +13,7 @@ const createMovie: Epic<Input, Input, AppState> = (action$) =>
   action$.pipe(
     ofType<Input>(MoviesActions.CREATE_MOVIE),
     mergeMap((action: CreateMovie) => {
-      ajax.post(`${Config.API.URL}/movies`, action.payload);
+      of(axios.post(`${Config.API.URL}/movies`, action.payload)).subscribe();
       return EMPTY;
     })
   );

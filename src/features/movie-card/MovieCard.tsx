@@ -1,6 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useClickOutside } from '../../hooks';
 import { Movie } from '../../models';
+import { deleteMovie } from '../../store/actions/movies-actions';
 import { AddEditMovieForm } from '../add-movie-form';
 import { Button } from '../common/button';
 import { Button as ButtonType } from '../common/button/models';
@@ -15,6 +17,7 @@ export interface MovieCardProps {
 }
 
 const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
+  const dispatch = useDispatch();
   const [isHoverShown, setIsHoverShown] = useState(false);
   const [isEditOpened, setIsEditOpened] = useState(false);
   const [isEditFormOpened, setIsEditFormOpened] = useState(false);
@@ -49,6 +52,12 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const closeDeleteForm = useCallback(() => {
     setIsDeleteFormOpened(false);
   }, []);
+  const onDeleteMovie = useCallback(
+    (id) => {
+      dispatch(deleteMovie({ id }));
+    },
+    [dispatch]
+  );
 
   const detailsHover = (
     <button
@@ -64,7 +73,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
     isEditFormOpened && (
       <Modal>
         <ModalLayout title="Edit Movie" onCloseForm={closeEditForm}>
-          <AddEditMovieForm movie={editMovie} />
+          <AddEditMovieForm movie={editMovie} isUpdate />
         </ModalLayout>
       </Modal>
     );
@@ -73,7 +82,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
     isDeleteFormOpened && (
       <Modal>
         <ModalLayout title="Delete Movie" onCloseForm={closeDeleteForm}>
-          <DeleteMovieForm id={id} onDeleteHandler={() => {}} />
+          <DeleteMovieForm id={id} onDeleteHandler={onDeleteMovie} />
         </ModalLayout>
       </Modal>
     );
