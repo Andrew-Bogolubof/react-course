@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useClickOutside } from '../../hooks';
 import { Movie } from '../../models';
 import { AddEditMovieForm } from '../add-movie-form';
@@ -21,15 +21,34 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const [isDeleteFormOpened, setIsDeleteFormOpened] = useState(false);
   const popupRef = useRef(null);
   useClickOutside(popupRef, () => setIsEditOpened(false));
-  const onMouseEnter = () => {
+  const onMouseEnter = useCallback(() => {
     setIsHoverShown(true);
-  };
-  const onMouseLeave = () => {
+  }, []);
+  const onMouseLeave = useCallback(() => {
     setIsHoverShown(false);
-  };
-  const onOpenDetails = () => {
+  }, []);
+  const onOpenDetails = useCallback(() => {
     setIsEditOpened(true);
-  };
+  }, []);
+  const openEditForm = useCallback(() => {
+    setIsEditFormOpened(true);
+    setIsHoverShown(false);
+    setIsEditOpened(false);
+  }, []);
+  const openDeleteForm = useCallback(() => {
+    setIsDeleteFormOpened(true);
+    setIsHoverShown(false);
+    setIsEditOpened(false);
+  }, []);
+  const closeEdit = useCallback(() => {
+    setIsEditOpened(false);
+  }, []);
+  const closeEditForm = useCallback(() => {
+    setIsEditFormOpened(false);
+  }, []);
+  const closeDeleteForm = useCallback(() => {
+    setIsDeleteFormOpened(false);
+  }, []);
 
   const detailsHover = (
     <button
@@ -44,7 +63,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const editFormModal = (editMovie: Movie) =>
     isEditFormOpened && (
       <Modal>
-        <ModalLayout title="Edit Movie" onCloseForm={() => setIsEditFormOpened(false)}>
+        <ModalLayout title="Edit Movie" onCloseForm={closeEditForm}>
           <AddEditMovieForm movie={editMovie} />
         </ModalLayout>
       </Modal>
@@ -53,7 +72,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const deleteFormModal = (id: number) =>
     isDeleteFormOpened && (
       <Modal>
-        <ModalLayout title="Delete Movie" onCloseForm={() => setIsDeleteFormOpened(false)}>
+        <ModalLayout title="Delete Movie" onCloseForm={closeDeleteForm}>
           <DeleteMovieForm id={id} onDeleteHandler={() => {}} />
         </ModalLayout>
       </Modal>
@@ -62,18 +81,18 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const editHover = (
     <div className={`d-flex flex-column pt-3 pb-3 ${classes.edit_container}`} ref={popupRef}>
       <div className="align-self-end pr-3">
-        <Button type={ButtonType.CloseSmall} onClickHandler={() => setIsEditOpened(false)} />
+        <Button type={ButtonType.CloseSmall} onClickHandler={closeEdit} />
       </div>
       <button
         type="button"
-        onClick={() => setIsEditFormOpened(true)}
+        onClick={openEditForm}
         className={`pl-3 p-2 text-left h6 ${classes.edit_option}`}
       >
         Edit
       </button>
       <button
         type="button"
-        onClick={() => setIsDeleteFormOpened(true)}
+        onClick={openDeleteForm}
         className={`pl-3 p-2 text-left h6 ${classes.edit_option}`}
       >
         Delete

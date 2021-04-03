@@ -11,6 +11,8 @@ export const getButtonClassName = (type: Button) => {
     case Button.Close:
     case Button.CloseSmall:
       return 'button_close';
+    case Button.Empty:
+      return '';
     default:
       return 'button_primary';
   }

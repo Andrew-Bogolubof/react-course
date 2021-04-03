@@ -6,6 +6,13 @@
   z-index: 900;
 }
 
+.details_header {
+  position: relative;
+  color: #f65261;
+  background-color: #424242;
+  z-index: 900;
+}
+
 .background {
   position: absolute;
   top: 0;
@@ -14,6 +21,11 @@
   left: 0;
   background-image: url('./../../assets/background.jpg');
   filter: blur(5px);
+}
+
+.darken_background {
+  background-blend-mode: darken;
+  background: rgba(0, 0, 0, 0.8) url('./../../assets/background.jpg');
 }
 
 .find_movie_title {
@@ -29,4 +41,9 @@
 
 .add_movie {
   padding: 15px;
+}
+
+.icon::before {
+  color: #f65261;
+  font-size: 20px;
 }
