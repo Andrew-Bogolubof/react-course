@@ -18,7 +18,7 @@ export interface HeaderProps {}
 const Header: React.FunctionComponent<HeaderProps> = () => {
   const [isMovieAddModalOpened, setIsMovieAddModalOpened] = useState(false);
   // TODO: delete when routing is turned on
-  const [isDetails] = useState(true);
+  const [isDetails] = useState(false);
   const openModal = useCallback(() => setIsMovieAddModalOpened(true), []);
   const closeModal = useCallback(() => setIsMovieAddModalOpened(false), []);
   const returnToSearch = useCallback(() => {}, []);

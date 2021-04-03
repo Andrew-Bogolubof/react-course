@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Field, Form, FormikProps } from 'formik';
+import { FormValues } from './models';
 import classes from './AddEditMovieForm.module.css';
 import { Button as ButtonType } from '../common/button/models';
 import { Button } from '../common/button';
@@ -16,6 +17,7 @@ import { Movie } from '../../models';
 import { Textarea } from '../common/forms/textarea';
 import type { TextareaProps } from '../common/forms/textarea/Textarea';
 import { createMovie, updateMovie } from '../../store/actions/movies-actions';
+import { validator } from './utils';
 
 // TODO: remove after integration with API
 const genresList = Array.from(
@@ -32,15 +34,6 @@ export interface AddEditMovieFormProps {
   isUpdate?: boolean;
 }
 
-type FormValues = {
-  title: string;
-  releaseDate: string;
-  movieUrl: string;
-  genres: string[];
-  overview: string;
-  runtime: number | string;
-};
-
 const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movie, isUpdate }) => {
   const dispatch = useDispatch();
   return (
@@ -53,11 +46,7 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
         overview: movie?.overview ?? '',
         runtime: movie?.runtime ?? '',
       }}
-      validate={(values) => {
-        const errors: Partial<FormValues> = {};
-
-        return errors;
-      }}
+      validate={validator}
       onSubmit={({ title, releaseDate, movieUrl, genres, overview, runtime }) => {
         const payload = {
           title,
@@ -203,6 +192,7 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
             <Button
               type={ButtonType.Primary}
               name="Submit"
+              {...(formikBag.isValid || formikBag.isInitialValid ? {} : { invalid: true })}
               onClickHandler={() => formikBag.submitForm()}
             />
           </div>

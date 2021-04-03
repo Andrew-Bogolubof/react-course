@@ -59,3 +59,7 @@
   background-color: #f6526065;
   border-color: #f6526065;
 }
+
+.invalid {
+  cursor: not-allowed !important;
+}

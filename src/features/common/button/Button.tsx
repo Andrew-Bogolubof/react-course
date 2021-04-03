@@ -5,11 +5,18 @@ import { getButtonClassName } from './utils';
 
 export interface ButtonProps {
   name?: string;
+  invalid?: boolean;
   type: ButtonType;
   onClickHandler: () => void;
 }
 
-const Button: React.FunctionComponent<ButtonProps> = ({ name, type, onClickHandler, children }) => {
+const Button: React.FunctionComponent<ButtonProps> = ({
+  name,
+  type,
+  onClickHandler,
+  children,
+  invalid,
+}) => {
   if (type === ButtonType.Close || type === ButtonType.CloseSmall) {
     return (
       <button
@@ -35,8 +42,10 @@ const Button: React.FunctionComponent<ButtonProps> = ({ name, type, onClickHandl
   return (
     <button
       type="button"
-      className={`btn btn-primary p-2 pr-5 pl-5 z-10 ${classes[getButtonClassName(type)]}`}
-      onClick={() => onClickHandler()}
+      className={`btn btn-primary p-2 pr-5 pl-5 z-10 ${classes[getButtonClassName(type)]} ${
+        invalid && classes.invalid
+      }`}
+      onClick={() => !invalid && onClickHandler()}
     >
       {name}
     </button>
