@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Field, Form, FormikProps } from 'formik';
 import classes from './AddEditMovieForm.module.css';
 import { Button as ButtonType } from '../common/button/models';
@@ -14,6 +15,7 @@ import moviesList from '../../mocks/movies.json';
 import { Movie } from '../../models';
 import { Textarea } from '../common/forms/textarea';
 import type { TextareaProps } from '../common/forms/textarea/Textarea';
+import { createMovie, updateMovie } from '../../store/actions/movies-actions';
 
 // TODO: remove after integration with API
 const genresList = Array.from(
@@ -25,8 +27,9 @@ const genresList = Array.from(
     .values()
 ).slice(0, 6);
 
-export interface AddMovieFormProps {
+export interface AddEditMovieFormProps {
   movie?: Movie;
+  isUpdate?: boolean;
 }
 
 type FormValues = {
@@ -38,154 +41,175 @@ type FormValues = {
   runtime: number | string;
 };
 
-const AddMovieForm: React.FunctionComponent<AddMovieFormProps> = ({ movie }) => (
-  <Formik
-    initialValues={{
-      title: movie?.title ?? '',
-      releaseDate: movie?.release_date ?? '',
-      movieUrl: movie?.poster_path ?? '',
-      genres: movie?.genres ?? genresList,
-      overview: movie?.overview ?? '',
-      runtime: movie?.runtime ?? '',
-    }}
-    validate={(values) => {
-      const errors: Partial<FormValues> = {};
+const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movie, isUpdate }) => {
+  const dispatch = useDispatch();
+  return (
+    <Formik
+      initialValues={{
+        title: movie?.title ?? '',
+        releaseDate: movie?.release_date ?? '',
+        movieUrl: movie?.poster_path ?? '',
+        genres: movie?.genres ?? genresList,
+        overview: movie?.overview ?? '',
+        runtime: movie?.runtime ?? '',
+      }}
+      validate={(values) => {
+        const errors: Partial<FormValues> = {};
 
-      return errors;
-    }}
-    onSubmit={() => {}}
-  >
-    {(formikBag: FormikProps<FormValues>) => (
-      <Form>
-        <div className="modal-body pl-4 pr-4">
-          {movie && (
-            <div className={`${classes.container}`}>
-              <div className={`pl-4 pb-1 text-uppercase ${classes.label}`}>Movie id</div>
-              <div className="pl-4 text-uppercase">{movie.id}</div>
-            </div>
-          )}
-          <Field name="title">
-            {() => (
-              <>
-                {WithLabel<InputProps>({
-                  Component: Input,
-                  label: 'Title',
-                  props: {
-                    htmlFor: 'title',
-                    placeholder: 'Title',
-                    value: formikBag.values.title,
-                    onChangeHandler: (event) => {
-                      formikBag.setFieldValue('title', event.target.value);
-                    },
-                  },
-                })}
-              </>
+        return errors;
+      }}
+      onSubmit={({ title, releaseDate, movieUrl, genres, overview, runtime }) => {
+        const payload = {
+          title,
+          release_date: releaseDate,
+          poster_path: movieUrl,
+          overview,
+          genres: Array.isArray(genres) ? genres : [genres],
+          runtime: Number(runtime),
+        };
+        if (isUpdate && movie) {
+          dispatch(updateMovie({ id: movie.id, ...payload }));
+        } else {
+          dispatch(createMovie(payload));
+        }
+      }}
+    >
+      {(formikBag: FormikProps<FormValues>) => (
+        <Form>
+          <div className="modal-body pl-4 pr-4">
+            {movie && (
+              <div className={`${classes.container}`}>
+                <div className={`pl-4 pb-1 text-uppercase ${classes.label}`}>Movie id</div>
+                <div className="pl-4 text-uppercase">{movie.id}</div>
+              </div>
             )}
-          </Field>
-          <Field name="release-date">
-            {() => (
-              <>
-                {WithLabel<DateInputProps>({
-                  Component: DateInput,
-                  label: 'Release Date',
-                  props: {
-                    htmlFor: 'release-date',
-                    placeholder: 'Release Date',
-                    value: formikBag.values.releaseDate,
-                    onChangeHandler: (event) => {
-                      formikBag.setFieldValue('releaseDate', event.target.value);
+            <Field name="title">
+              {() => (
+                <>
+                  {WithLabel<InputProps>({
+                    Component: Input,
+                    label: 'Title',
+                    props: {
+                      htmlFor: 'title',
+                      placeholder: 'Title',
+                      value: formikBag.values.title,
+                      onChangeHandler: (event) => {
+                        formikBag.setFieldValue('title', event.target.value);
+                      },
                     },
-                  },
-                })}
-              </>
-            )}
-          </Field>
-          <Field name="movie-url">
-            {() => (
-              <>
-                {WithLabel<InputProps>({
-                  Component: Input,
-                  label: 'Movie URL',
-                  props: {
-                    htmlFor: 'movie-url',
-                    placeholder: 'Movie URL',
-                    value: formikBag.values.movieUrl,
-                    onChangeHandler: (event) => {
-                      formikBag.setFieldValue('movieUrl', event.target.value);
+                  })}
+                </>
+              )}
+            </Field>
+            <Field name="release-date">
+              {() => (
+                <>
+                  {WithLabel<DateInputProps>({
+                    Component: DateInput,
+                    label: 'Release Date',
+                    props: {
+                      htmlFor: 'release-date',
+                      placeholder: 'Release Date',
+                      value: formikBag.values.releaseDate,
+                      onChangeHandler: (event) => {
+                        formikBag.setFieldValue('releaseDate', event.target.value);
+                      },
                     },
-                  },
-                })}
-              </>
-            )}
-          </Field>
-          <Field name="genre">
-            {() => (
-              <>
-                {WithLabel<SelectInputProps>({
-                  Component: SelectInput,
-                  label: 'Genre',
-                  props: {
-                    htmlFor: 'genre',
-                    options: genresList,
-                    selectedOptions: formikBag.values.genres,
-                    onChangeHandler: (event) => {
-                      formikBag.setFieldValue('genres', event.target.value);
+                  })}
+                </>
+              )}
+            </Field>
+            <Field name="movie-url">
+              {() => (
+                <>
+                  {WithLabel<InputProps>({
+                    Component: Input,
+                    label: 'Movie URL',
+                    props: {
+                      htmlFor: 'movie-url',
+                      placeholder: 'Movie URL',
+                      value: formikBag.values.movieUrl,
+                      onChangeHandler: (event) => {
+                        formikBag.setFieldValue('movieUrl', event.target.value);
+                      },
                     },
-                  },
-                })}
-              </>
-            )}
-          </Field>
-          <Field name="overview">
-            {() => (
-              <>
-                {WithLabel<TextareaProps>({
-                  Component: Textarea,
-                  label: 'Overview',
-                  props: {
-                    htmlFor: 'overview',
-                    placeholder: 'Overview',
-                    value: formikBag.values.overview,
-                    onChangeHandler: (event) => {
-                      formikBag.setFieldValue('overview', event.target.value);
+                  })}
+                </>
+              )}
+            </Field>
+            <Field name="genre">
+              {() => (
+                <>
+                  {WithLabel<SelectInputProps>({
+                    Component: SelectInput,
+                    label: 'Genre',
+                    props: {
+                      htmlFor: 'genre',
+                      options: genresList,
+                      selectedOptions: formikBag.values.genres,
+                      onChangeHandler: (event) => {
+                        formikBag.setFieldValue('genres', event.target.value);
+                      },
                     },
-                  },
-                })}
-              </>
-            )}
-          </Field>
-          <Field name="runtime">
-            {() => (
-              <>
-                {WithLabel<InputProps>({
-                  Component: Input,
-                  label: 'Runtime',
-                  props: {
-                    htmlFor: 'runtime',
-                    placeholder: 'Runtime',
-                    value: formikBag.values.runtime,
-                    onChangeHandler: (event) => {
-                      formikBag.setFieldValue('runtime', event.target.value);
+                  })}
+                </>
+              )}
+            </Field>
+            <Field name="overview">
+              {() => (
+                <>
+                  {WithLabel<TextareaProps>({
+                    Component: Textarea,
+                    label: 'Overview',
+                    props: {
+                      htmlFor: 'overview',
+                      placeholder: 'Overview',
+                      value: formikBag.values.overview,
+                      onChangeHandler: (event) => {
+                        formikBag.setFieldValue('overview', event.target.value);
+                      },
                     },
-                  },
-                })}
-              </>
-            )}
-          </Field>
-        </div>
-        <div
-          className={`modal-footer d-flex justify-content-end align-items-center ${classes.modal_footer}`}
-        >
-          <Button
-            type={ButtonType.Cancel}
-            name="Reset"
-            onClickHandler={() => formikBag.resetForm()}
-          />
-          <Button type={ButtonType.Primary} name="Submit" onClickHandler={() => {}} />
-        </div>
-      </Form>
-    )}
-  </Formik>
-);
+                  })}
+                </>
+              )}
+            </Field>
+            <Field name="runtime">
+              {() => (
+                <>
+                  {WithLabel<InputProps>({
+                    Component: Input,
+                    label: 'Runtime',
+                    props: {
+                      htmlFor: 'runtime',
+                      placeholder: 'Runtime',
+                      value: formikBag.values.runtime,
+                      onChangeHandler: (event) => {
+                        formikBag.setFieldValue('runtime', event.target.value);
+                      },
+                    },
+                  })}
+                </>
+              )}
+            </Field>
+          </div>
+          <div
+            className={`modal-footer d-flex justify-content-end align-items-center ${classes.modal_footer}`}
+          >
+            <Button
+              type={ButtonType.Cancel}
+              name="Reset"
+              onClickHandler={() => formikBag.resetForm()}
+            />
+            <Button
+              type={ButtonType.Primary}
+              name="Submit"
+              onClickHandler={() => formikBag.submitForm()}
+            />
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
+};
 
-export default AddMovieForm;
+export default AddEditMovieForm;

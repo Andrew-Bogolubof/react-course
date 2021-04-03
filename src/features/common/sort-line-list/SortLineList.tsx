@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from './SortLineList.module.css';
 
 export interface SortLineListProps {
   list: string[];
-  // onClickHandler?: () => void;
+  item: string;
+  onClickHandler: (item: string) => void;
 }
 
-const SortLineList: React.FunctionComponent<SortLineListProps> = ({ list }) => {
-  const [selectedGenre, setSelectedGenre] = useState(list[0]);
-
-  return (
-    <>
-      {list.map((listElement) => (
-        <div key={listElement} className={`text-center mr-2 ${classes.list_element}`}>
-          {listElement}
-          <div
-            className={`${listElement === selectedGenre ? classes.list_element_selected : ''}`}
-          />
-        </div>
-      ))}
-    </>
-  );
-};
+const SortLineList: React.FunctionComponent<SortLineListProps> = ({
+  list,
+  item,
+  onClickHandler,
+}) => (
+  <>
+    {list.map((listElement) => (
+      <button
+        key={listElement}
+        type="button"
+        className={`text-center mr-2 ${classes.list_element}`}
+        onClick={() => onClickHandler(listElement)}
+      >
+        {listElement}
+        <div className={`${listElement === item ? classes.list_element_selected : ''}`} />
+      </button>
+    ))}
+  </>
+);
 
 export default SortLineList;
