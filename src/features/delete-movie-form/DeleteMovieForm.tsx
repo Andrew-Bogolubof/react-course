@@ -19,7 +19,7 @@ const DeleteMovieForm: React.FunctionComponent<DeleteMovieFormProps> = ({
     <div
       className={`modal-footer d-flex justify-content-end align-items-center ${classes.modal_footer}`}
     >
-      <Button type={ButtonType.Primary} name="Submit" onClickHandler={() => onDeleteHandler(id)} />
+      <Button type={ButtonType.Primary} name="Submit" onClick={() => onDeleteHandler(id)} />
     </div>
   </>
 );

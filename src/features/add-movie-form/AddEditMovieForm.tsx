@@ -160,16 +160,12 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
       <div
         className={`modal-footer d-flex justify-content-end align-items-center ${classes.modal_footer}`}
       >
-        <Button
-          type={ButtonType.Cancel}
-          name="Reset"
-          onClickHandler={() => formikBag.resetForm()}
-        />
+        <Button type={ButtonType.Cancel} name="Reset" onClick={() => formikBag.resetForm()} />
         <Button
           type={ButtonType.Primary}
           name="Submit"
           {...(formikBag.isValid ? {} : { invalid: true })}
-          onClickHandler={() => formikBag.submitForm()}
+          onClick={() => formikBag.submitForm()}
         />
       </div>
     </form>

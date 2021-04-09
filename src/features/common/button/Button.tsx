@@ -7,13 +7,13 @@ export interface ButtonProps {
   name?: string;
   invalid?: boolean;
   type: ButtonType;
-  onClickHandler: () => void;
+  onClick: () => void;
 }
 
 const Button: React.FunctionComponent<ButtonProps> = ({
   name,
   type,
-  onClickHandler,
+  onClick,
   children,
   invalid,
 }) => {
@@ -22,7 +22,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
       <button
         type="button"
         className={`btn z-10 ${classes[getButtonClassName(type)]}`}
-        onClick={() => onClickHandler()}
+        onClick={() => onClick()}
       >
         <i className={`bi bi-x ${type === ButtonType.Close ? classes.icon : classes.icon_small}`} />
       </button>
@@ -33,7 +33,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
       <button
         type="button"
         className={`btn z-10 ${classes[getButtonClassName(type)]}`}
-        onClick={() => onClickHandler()}
+        onClick={() => onClick()}
       >
         {children} {name}
       </button>
@@ -45,7 +45,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
       className={`btn btn-primary p-2 pr-5 pl-5 z-10 ${classes[getButtonClassName(type)]} ${
         invalid && classes.invalid
       }`}
-      onClick={() => !invalid && onClickHandler()}
+      onClick={() => !invalid && onClick()}
     >
       {name}
     </button>

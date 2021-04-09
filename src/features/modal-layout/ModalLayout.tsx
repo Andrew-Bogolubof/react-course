@@ -18,7 +18,7 @@ const ModalLayout: React.FunctionComponent<ModalLayoutProps> = ({
       <h5 className="modal-title">
         <p className="h3 text-uppercase font-weight-normal mt-2">{title}</p>
       </h5>
-      <Button type={ButtonType.Close} name="Submit" onClickHandler={() => onCloseForm()} />
+      <Button type={ButtonType.Close} name="Submit" onClick={() => onCloseForm()} />
     </div>
     {children}
   </div>

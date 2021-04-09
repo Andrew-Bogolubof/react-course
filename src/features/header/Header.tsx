@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import classes from './Header.module.css';
 import { Input } from '../common/forms/input';
 import { Button } from '../common/button';
@@ -10,15 +11,14 @@ import { Logo } from '../common/logo';
 import { AddEditMovieForm } from '../add-movie-form';
 import { TextColor } from '../common/forms/models';
 import { MovieDetails } from '../movie-details';
-// TODO: remove mock movies and genres
-import moviesList from '../../mocks/movies.json';
+import { useSelector } from '../../store';
 
 export interface HeaderProps {}
 
 const Header: React.FunctionComponent<HeaderProps> = () => {
   const [isMovieAddModalOpened, setIsMovieAddModalOpened] = useState(false);
-  // TODO: delete when routing is turned on
-  const [isDetails] = useState(false);
+  const isDetails = useRouteMatch('/film/:id');
+  const movies = useSelector((state) => state.movies);
   const openModal = useCallback(() => setIsMovieAddModalOpened(true), []);
   const closeModal = useCallback(() => setIsMovieAddModalOpened(false), []);
   const returnToSearch = useCallback(() => {}, []);
@@ -37,14 +37,14 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
           onChangeHandler={() => {}}
           color={TextColor.Gray}
         />
-        <Button name="Search" type={ButtonType.Primary} onClickHandler={search} />
+        <Button name="Search" type={ButtonType.Primary} onClick={search} />
       </div>
     </>
   );
 
   const addMovieButton = (
     <>
-      <Button name="+ Add Movie" type={ButtonType.Secondary} onClickHandler={openModal} />
+      <Button name="+ Add Movie" type={ButtonType.Secondary} onClick={openModal} />
       {isMovieAddModalOpened && (
         <Modal>
           <ModalLayout title="Add Movie" onCloseForm={closeModal}>
@@ -55,10 +55,12 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
     </>
   );
 
-  const headerDetails = <MovieDetails movie={moviesList[3]} />;
+  const getHeaderDetails = (movieId: number) => (
+    <MovieDetails movie={movies.find((movie) => movieId === movie.id)!} />
+  );
 
   const returnToSearchButton = (
-    <Button type={ButtonType.Empty} onClickHandler={returnToSearch}>
+    <Button type={ButtonType.Empty} onClick={returnToSearch}>
       <i className={`bi bi-search ${classes.icon}`} />
     </Button>
   );
@@ -78,7 +80,16 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
           </div>
         </div>
         <div className="container-xl container-md container-sm">
-          {isDetails ? headerDetails : headerSearch}
+          <Switch>
+            <Route
+              path="/movies/:id"
+              exact
+              render={({ match }) => getHeaderDetails(Number(match.params.id))}
+            />
+            <Route path="/" exact>
+              {headerSearch}
+            </Route>
+          </Switch>
         </div>
       </ErrorBoundary>
     </header>
