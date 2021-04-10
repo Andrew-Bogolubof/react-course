@@ -16,7 +16,7 @@ function App() {
       <div className={`${classes.container}`}>
         <Router>
           <Switch>
-            <Route exact path={['/', '/film/:id']}>
+            <Route exact path={['/', '/film/:id', '/search/:query']}>
               <Header />
               <Main />
             </Route>

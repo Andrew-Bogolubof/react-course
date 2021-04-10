@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import classes from './Header.module.css';
-import { Input } from '../common/forms/input';
 import { Button } from '../common/button';
 import { ErrorBoundary } from '../error-boundary';
 import { Button as ButtonType } from '../common/button/models';
@@ -9,38 +9,32 @@ import { Modal } from '../modal';
 import { ModalLayout } from '../modal-layout';
 import { Logo } from '../common/logo';
 import { AddEditMovieForm } from '../add-movie-form';
-import { TextColor } from '../common/forms/models';
 import { MovieDetails } from '../movie-details';
 import { useSelector } from '../../store';
+import { Search } from '../search';
+import { fetchMovie } from '../../store/actions/movies-actions';
 
 export interface HeaderProps {}
 
 const Header: React.FunctionComponent<HeaderProps> = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [isMovieAddModalOpened, setIsMovieAddModalOpened] = useState(false);
-  const isDetails = useRouteMatch('/film/:id');
+  const isDetails = useRouteMatch<{ id: string }>('/film/:id');
   const movies = useSelector((state) => state.movies);
   const openModal = useCallback(() => setIsMovieAddModalOpened(true), []);
   const closeModal = useCallback(() => setIsMovieAddModalOpened(false), []);
-  const returnToSearch = useCallback(() => {}, []);
-  const search = useCallback(() => {}, []);
-
-  const headerSearch = (
-    <>
-      <div className="row">
-        <div className="col-sm">
-          <div className={`text-left h1 ${classes.find_movie_title}`}>Find Your Movie</div>
-        </div>
-      </div>
-      <div className="row">
-        <Input
-          placeholder="What do you want to watch?"
-          onChangeHandler={() => {}}
-          color={TextColor.Gray}
-        />
-        <Button name="Search" type={ButtonType.Primary} onClick={search} />
-      </div>
-    </>
-  );
+  const returnToSearch = useCallback(() => {
+    history.push('/');
+  }, [history]);
+  useEffect(() => {
+    if (
+      isDetails?.params.id &&
+      !movies.find((movie) => movie.id === Number(isDetails?.params.id))
+    ) {
+      dispatch(fetchMovie({ id: Number(isDetails?.params.id) }));
+    }
+  }, [dispatch, isDetails?.params.id, movies]);
 
   const addMovieButton = (
     <>
@@ -55,8 +49,12 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
     </>
   );
 
-  const getHeaderDetails = (movieId: number) => (
-    <MovieDetails movie={movies.find((movie) => movieId === movie.id)!} />
+  const getHeaderDetails = useMemo(
+    () => (movieId: number) => {
+      const detailsMove = movies.find((movie) => movieId === movie.id);
+      return detailsMove ? <MovieDetails movie={detailsMove} /> : <div>Loading</div>;
+    },
+    [movies]
   );
 
   const returnToSearchButton = (
@@ -82,12 +80,12 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
         <div className="container-xl container-md container-sm">
           <Switch>
             <Route
-              path="/movies/:id"
+              path="/film/:id"
               exact
               render={({ match }) => getHeaderDetails(Number(match.params.id))}
             />
-            <Route path="/" exact>
-              {headerSearch}
+            <Route path={['/', '/search/:query']} exact>
+              <Search />
             </Route>
           </Switch>
         </div>
