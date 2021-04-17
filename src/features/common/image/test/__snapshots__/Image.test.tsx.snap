@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image Component should be rendered 1`] = `
+<DocumentFragment>
+  <img
+    class="img-fluid"
+    src="http://test.com"
+  />
+</DocumentFragment>
+`;
