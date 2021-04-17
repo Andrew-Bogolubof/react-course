@@ -7,7 +7,7 @@ import { createMovie } from '../../../store/actions/movies-actions';
 
 jest.mock('react-redux', () => ({
   ...(jest.requireActual('react-redux') as object),
-  useDispatch: jest.fn(() => ({})),
+  useDispatch: jest.fn(),
 }));
 
 const mockedUseDispatch = useDispatch as jest.Mock;
@@ -29,13 +29,15 @@ describe('AddEditMovieForm', () => {
   });
 
   it('should be submitted when form filled with correct values', async () => {
+    const mockDispatch = jest.fn();
+    mockedUseDispatch.mockReturnValue(mockDispatch);
     render(<AddEditMovieForm />);
     const expectedAction = createMovie({
       title: 'Test Title',
       release_date: '',
       poster_path: 'http://test.com',
       overview: 'Test Overview',
-      genres: [],
+      genres: ['Drama', 'Romance', 'Animation', 'Adventure', 'Family', 'Comedy'],
       runtime: 123,
     });
     userEvent.type(screen.getByPlaceholderText('Title'), 'Test Title');
@@ -45,7 +47,7 @@ describe('AddEditMovieForm', () => {
     userEvent.click(screen.getByText('Submit'));
 
     await waitFor(
-      () => expect(mockedUseDispatch).toHaveBeenCalledWith(expectedAction),
+      () => expect(mockDispatch).toHaveBeenCalledWith(expectedAction),
       expect.anything()
     );
   });

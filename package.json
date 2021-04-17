@@ -29,9 +29,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --collectCoverage --silent --passWithNoTests",
+    "test": "react-scripts test --silent --passWithNoTests",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "test:coverage": "npm run test --coverage",
+    "test:coverage": "npm run test --collectCoverage",
     "eject": "react-scripts eject",
     "stylelint": "stylelint \"src/**/*.css\"",
     "compile": "tsc",
