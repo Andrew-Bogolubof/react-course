@@ -1,28 +1,29 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import { useRouteMatch } from 'react-router-dom';
 import classes from './Search.module.css';
-import { setSearchString } from '../../store/actions/sorting-actions';
+import { setSearchString } from '../../src/store/actions/sorting-actions';
 import { Input } from '../common/forms/input';
 import { Button as ButtonType } from '../common/button/models';
 import { Button } from '../common/button';
 import { TextColor } from '../common/forms/models';
-import { useSelector } from '../../store';
-import { fetchMovies } from '../../store/actions/movies-actions';
+import { useSelector } from '../../src/store';
+import { fetchMovies } from '../../src/store/actions/movies-actions';
 
 export interface SearchProps {}
 
 const Search: React.FC<SearchProps> = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const router = useRouter();
   const searchMatch = useRouteMatch<{ query: string }>('/search/:query');
   const [searchQuery, setSearchQuery] = useState('');
   const sortOptions = useSelector((state) => state.sortingOptions);
   const search = useCallback(() => {
     dispatch(setSearchString({ search: searchQuery }));
-    history.push(`/search/${searchQuery}`);
-  }, [dispatch, history, searchQuery]);
+    router.push(`/search/${searchQuery}`);
+  }, [dispatch, router, searchQuery]);
 
   useEffect(() => {
     if (searchMatch?.params.query) {

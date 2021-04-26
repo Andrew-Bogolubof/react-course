@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classes from './Header.module.css';
@@ -10,14 +11,14 @@ import { ModalLayout } from '../modal-layout';
 import { Logo } from '../common/logo';
 import { AddEditMovieForm } from '../add-movie-form';
 import { MovieDetails } from '../movie-details';
-import { useSelector } from '../../store';
+import { useSelector } from '../../src/store';
 import { Search } from '../search';
-import { fetchMovie } from '../../store/actions/movies-actions';
+import { fetchMovie } from '../../src/store/actions/movies-actions';
 
 export interface HeaderProps {}
 
 const Header: React.FunctionComponent<HeaderProps> = () => {
-  const history = useHistory();
+  const router = useRouter();
   const dispatch = useDispatch();
   const [isMovieAddModalOpened, setIsMovieAddModalOpened] = useState(false);
   const isDetails = useRouteMatch<{ id: string }>('/film/:id');
@@ -25,8 +26,8 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
   const openModal = useCallback(() => setIsMovieAddModalOpened(true), []);
   const closeModal = useCallback(() => setIsMovieAddModalOpened(false), []);
   const returnToSearch = useCallback(() => {
-    history.push('/');
-  }, [history]);
+    router.push('/');
+  }, [router]);
   useEffect(() => {
     if (
       isDetails?.params.id &&

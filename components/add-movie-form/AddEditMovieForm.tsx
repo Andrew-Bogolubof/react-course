@@ -11,11 +11,11 @@ import { DateInput } from '../common/forms/date-input';
 import { DateInputProps } from '../common/forms/date-input/DateInput';
 import SelectInput, { SelectInputProps } from '../common/forms/select-input/SelectInput';
 // TODO: remove mock movies and genres
-import moviesList from '../../mocks/movies.json';
-import { Movie } from '../../models';
+import moviesList from '../../src/mocks/movies.json';
+import { Movie } from '../../src/models';
 import { Textarea } from '../common/forms/textarea';
 import type { TextareaProps } from '../common/forms/textarea/Textarea';
-import { createMovie, updateMovie } from '../../store/actions/movies-actions';
+import { createMovie, updateMovie } from '../../src/store/actions/movies-actions';
 import { validator } from './utils';
 
 // TODO: remove after integration with API

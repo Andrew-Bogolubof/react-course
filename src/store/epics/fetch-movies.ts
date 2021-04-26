@@ -1,6 +1,7 @@
+import { from } from 'rxjs';
+import axios from 'axios';
 import { Epic, ofType } from 'redux-observable';
 import { mergeMap, map } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
 import { Config } from '../../config';
 import { Movie } from '../../models';
 import { FetchMovies, MoviesActions, setMovies, SetMovies } from '../actions/movies-actions';
@@ -22,9 +23,9 @@ const fetchMovies: Epic<Input, SetMovies, AppState> = (action$, state$) =>
         })
         .map(([key, value]) => `${key}=${Array.isArray(value) ? value.join(',') : value}`)
         .join('&');
-      return ajax
-        .getJSON<{ data: Movie[] }>(`${Config.API.URL}/movies?${query}`)
-        .pipe(map((response) => setMovies([...state$.value.movies, ...response.data])));
+      return from(axios.get<{ data: Movie[] }>(`${Config.API.URL}/movies?${query}`)).pipe(
+        map((response) => setMovies(response.data.data))
+      );
     })
   );
 
