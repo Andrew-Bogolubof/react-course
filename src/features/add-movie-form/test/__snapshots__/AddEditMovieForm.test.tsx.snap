@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddEditMovieForm should render without errors 1`] = `
+<DocumentFragment>
+  <form
+    action="#"
+  >
+    <div
+      class="modal-body pl-4 pr-4"
+    >
+      <div
+        class="container"
+      >
+        <label
+          class="form-label pl-4 label"
+          for="title"
+        >
+          Title
+        </label>
+        <div
+          class="row pl-4 pr-4 input"
+        >
+          <div
+            class="col input-group"
+          >
+            <input
+              aria-label="Server"
+              class="form-control input white"
+              id="title"
+              placeholder="Title"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="container"
+      >
+        <label
+          class="form-label pl-4 label"
+          for="release-date"
+        >
+          Release Date
+        </label>
+        <div
+          class="row pl-4 pr-4 input"
+        >
+          <div
+            class="col input-group"
+          >
+            <input
+              aria-label="Server"
+              class="form-control input white"
+              id="release-date"
+              placeholder="Release Date"
+              type="date"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="container"
+      >
+        <label
+          class="form-label pl-4 label"
+          for="movie-url"
+        >
+          Movie URL
+        </label>
+        <div
+          class="row pl-4 pr-4 input"
+        >
+          <div
+            class="col input-group"
+          >
+            <input
+              aria-label="Server"
+              class="form-control input white"
+              id="movie-url"
+              placeholder="Movie URL"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="container"
+      >
+        <label
+          class="form-label pl-4 label"
+          for="genre"
+        >
+          Genre
+        </label>
+        <div
+          class="row pl-4 pr-4 input"
+        >
+          <div
+            class="col input-group"
+          >
+            <select
+              class="form-select custom-select input white"
+              id="genre"
+            >
+              <option>
+                Drama
+              </option>
+              <option>
+                Romance
+              </option>
+              <option>
+                Animation
+              </option>
+              <option>
+                Adventure
+              </option>
+              <option>
+                Family
+              </option>
+              <option>
+                Comedy
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div
+        class="container"
+      >
+        <label
+          class="form-label pl-4 label"
+          for="overview"
+        >
+          Overview
+        </label>
+        <div
+          class="row pl-4 pr-4 input"
+        >
+          <div
+            class="col input-group"
+          >
+            <textarea
+              aria-label="Server"
+              class="form-control textarea white"
+              id="overview"
+              placeholder="Overview"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="container"
+      >
+        <label
+          class="form-label pl-4 label"
+          for="runtime"
+        >
+          Runtime
+        </label>
+        <div
+          class="row pl-4 pr-4 input"
+        >
+          <div
+            class="col input-group"
+          >
+            <input
+              aria-label="Server"
+              class="form-control input white"
+              id="runtime"
+              placeholder="Runtime"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal-footer d-flex justify-content-end align-items-center modal_footer"
+    >
+      <button
+        class="btn btn-primary p-2 pr-5 pl-5 z-10 button_cancel"
+        type="button"
+      >
+        Reset
+      </button>
+      <button
+        class="btn btn-primary p-2 pr-5 pl-5 z-10 button_primary"
+        type="button"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;
