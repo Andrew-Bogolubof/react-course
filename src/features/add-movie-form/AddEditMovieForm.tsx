@@ -72,6 +72,7 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
           </div>
         )}
         <>
+          {/* PATTERN: HOC */}
           {WithLabel<InputProps>({
             Component: Input,
             label: 'Title',

@@ -22,6 +22,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
   const [isMovieAddModalOpened, setIsMovieAddModalOpened] = useState(false);
   const isDetails = useRouteMatch<{ id: string }>('/film/:id');
   const movies = useSelector((state) => state.movies);
+  // PATTERN: memoization of callbacks
   const openModal = useCallback(() => setIsMovieAddModalOpened(true), []);
   const closeModal = useCallback(() => setIsMovieAddModalOpened(false), []);
   const returnToSearch = useCallback(() => {
@@ -49,6 +50,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
     </>
   );
 
+  /* PATTERN: Avoid Inline Function Definition */
   const getHeaderDetails = useMemo(
     () => (movieId: number) => {
       const detailsMove = movies.find((movie) => movieId === movie.id);

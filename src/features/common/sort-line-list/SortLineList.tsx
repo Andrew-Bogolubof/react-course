@@ -13,6 +13,7 @@ const SortLineList: React.FunctionComponent<SortLineListProps> = ({
   onClickHandler,
 }) => (
   <>
+    {/* PATTERN: Fragments */}
     {list.map((listElement) => (
       <button
         key={listElement}
