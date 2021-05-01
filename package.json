@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-knobs": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.2.9",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
     "@types/jest": "^26.0.20",
-    "@types/node": "^12.20.0",
-    "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
@@ -41,7 +44,9 @@
     "lint": "eslint --ext .ts,.tsx src --color",
     "prettier": "prettier --write src/**/*.ts src/**/*.tsx src/**/*.css",
     "pre-commit": "npm-run-all compile prettier stylelint lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
@@ -62,6 +67,8 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^12.20.11",
+    "@types/react": "^17.0.4",
     "@types/react-redux": "^7.1.16",
     "@types/react-router": "^5.1.13",
     "@types/react-router-dom": "^5.1.7",

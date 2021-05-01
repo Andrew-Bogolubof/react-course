@@ -18,6 +18,7 @@ const DropDown: React.FunctionComponent<DropDownProps> = ({ options, option, onC
 
   const modal = (
     <div className={`d-flex flex-column pt-3 pb-3 ${classes.edit_container}`} ref={popupRef}>
+      {/* PATTERN: Avoid using Index as Key */}
       {options.map((optionItem) => (
         <button
           type="button"
@@ -55,4 +56,5 @@ const DropDown: React.FunctionComponent<DropDownProps> = ({ options, option, onC
   );
 };
 
-export default DropDown;
+// PATTERN: memoization
+export default React.memo(DropDown);

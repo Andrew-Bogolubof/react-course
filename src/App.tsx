@@ -10,6 +10,7 @@ import { Footer } from './features/footer';
 import { store } from './store';
 import { NotFound } from './features/not-found';
 
+// PATTERN: Type Checks with Typescript
 function App() {
   return (
     <Provider store={store}>
