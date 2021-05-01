@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { useClickOutside } from '../../hooks';
 import { Movie } from '../../models';
 import { deleteMovie } from '../../store/actions/movies-actions';
@@ -18,6 +19,7 @@ export interface MovieCardProps {
 
 const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isHoverShown, setIsHoverShown] = useState(false);
   const [isEditOpened, setIsEditOpened] = useState(false);
   const [isEditFormOpened, setIsEditFormOpened] = useState(false);
@@ -58,6 +60,9 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
     },
     [dispatch]
   );
+  const openMovieDetails = () => {
+    history.push(`/film/${movie.id}`);
+  };
 
   const detailsHover = (
     <button
@@ -90,7 +95,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const editHover = (
     <div className={`d-flex flex-column pt-3 pb-3 ${classes.edit_container}`} ref={popupRef}>
       <div className="align-self-end pr-3">
-        <Button type={ButtonType.CloseSmall} onClickHandler={closeEdit} />
+        <Button type={ButtonType.CloseSmall} onClick={closeEdit} />
       </div>
       <button
         type="button"
@@ -110,10 +115,12 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   );
 
   return (
-    <div
+    <button
       className={`col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 p-4 d-flex flex-column justify-content-between ${classes.card}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={openMovieDetails}
+      type="button"
     >
       {isHoverShown && detailsHover}
       {editFormModal(movie)}
@@ -129,7 +136,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
           <div className="sm text-muted text-wrap">{movie.genres.join(', ')}</div>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

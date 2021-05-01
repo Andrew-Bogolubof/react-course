@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import classes from './Header.module.css';
-import { Input } from '../common/forms/input';
 import { Button } from '../common/button';
 import { ErrorBoundary } from '../error-boundary';
 import { Button as ButtonType } from '../common/button/models';
@@ -8,43 +9,36 @@ import { Modal } from '../modal';
 import { ModalLayout } from '../modal-layout';
 import { Logo } from '../common/logo';
 import { AddEditMovieForm } from '../add-movie-form';
-import { TextColor } from '../common/forms/models';
 import { MovieDetails } from '../movie-details';
-// TODO: remove mock movies and genres
-import moviesList from '../../mocks/movies.json';
+import { useSelector } from '../../store';
+import { Search } from '../search';
+import { fetchMovie } from '../../store/actions/movies-actions';
 
 export interface HeaderProps {}
 
 const Header: React.FunctionComponent<HeaderProps> = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [isMovieAddModalOpened, setIsMovieAddModalOpened] = useState(false);
-  // TODO: delete when routing is turned on
-  const [isDetails] = useState(false);
+  const isDetails = useRouteMatch<{ id: string }>('/film/:id');
+  const movies = useSelector((state) => state.movies);
   const openModal = useCallback(() => setIsMovieAddModalOpened(true), []);
   const closeModal = useCallback(() => setIsMovieAddModalOpened(false), []);
-  const returnToSearch = useCallback(() => {}, []);
-  const search = useCallback(() => {}, []);
-
-  const headerSearch = (
-    <>
-      <div className="row">
-        <div className="col-sm">
-          <div className={`text-left h1 ${classes.find_movie_title}`}>Find Your Movie</div>
-        </div>
-      </div>
-      <div className="row">
-        <Input
-          placeholder="What do you want to watch?"
-          onChangeHandler={() => {}}
-          color={TextColor.Gray}
-        />
-        <Button name="Search" type={ButtonType.Primary} onClickHandler={search} />
-      </div>
-    </>
-  );
+  const returnToSearch = useCallback(() => {
+    history.push('/');
+  }, [history]);
+  useEffect(() => {
+    if (
+      isDetails?.params.id &&
+      !movies.find((movie) => movie.id === Number(isDetails?.params.id))
+    ) {
+      dispatch(fetchMovie({ id: Number(isDetails?.params.id) }));
+    }
+  }, [dispatch, isDetails?.params.id, movies]);
 
   const addMovieButton = (
     <>
-      <Button name="+ Add Movie" type={ButtonType.Secondary} onClickHandler={openModal} />
+      <Button name="+ Add Movie" type={ButtonType.Secondary} onClick={openModal} />
       {isMovieAddModalOpened && (
         <Modal>
           <ModalLayout title="Add Movie" onCloseForm={closeModal}>
@@ -55,10 +49,16 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
     </>
   );
 
-  const headerDetails = <MovieDetails movie={moviesList[3]} />;
+  const getHeaderDetails = useMemo(
+    () => (movieId: number) => {
+      const detailsMove = movies.find((movie) => movieId === movie.id);
+      return detailsMove ? <MovieDetails movie={detailsMove} /> : <div>Loading</div>;
+    },
+    [movies]
+  );
 
   const returnToSearchButton = (
-    <Button type={ButtonType.Empty} onClickHandler={returnToSearch}>
+    <Button type={ButtonType.Empty} onClick={returnToSearch}>
       <i className={`bi bi-search ${classes.icon}`} />
     </Button>
   );
@@ -78,7 +78,16 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
           </div>
         </div>
         <div className="container-xl container-md container-sm">
-          {isDetails ? headerDetails : headerSearch}
+          <Switch>
+            <Route
+              path="/film/:id"
+              exact
+              render={({ match }) => getHeaderDetails(Number(match.params.id))}
+            />
+            <Route path={['/', '/search/:query']} exact>
+              <Search />
+            </Route>
+          </Switch>
         </div>
       </ErrorBoundary>
     </header>

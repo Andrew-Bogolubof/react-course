@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import notFoundImage from '../../../assets/image-not-found.png';
 
 export interface ImageProps {
@@ -8,6 +8,9 @@ export interface ImageProps {
 
 const Image: React.FunctionComponent<ImageProps> = ({ src, alt }) => {
   const [imageSrc, setImageSrc] = useState(src);
+  useEffect(() => {
+    setImageSrc(src);
+  }, [src]);
 
   const onImageLoadError = () => setImageSrc(notFoundImage);
   return (

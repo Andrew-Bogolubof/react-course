@@ -51,6 +51,27 @@ const Main: React.FunctionComponent<MainProps> = () => {
     },
     [dispatch]
   );
+
+  const moviesContent = movies.length ? (
+    <>
+      <div className="container-xl p-2">
+        <b>{movies.length}</b> movies found
+      </div>
+      <div className="container-xl">
+        <div className="row">
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+      </div>
+    </>
+  ) : (
+    <div
+      className={`container-xl p-2 d-flex justify-content-center align-items-center ${classes.not_found}`}
+    >
+      <p className="display-3">No Movie Found</p>
+    </div>
+  );
   return (
     <main className={`container-fluid ${classes.main}`}>
       <ErrorBoundary>
@@ -75,16 +96,7 @@ const Main: React.FunctionComponent<MainProps> = () => {
             </div>
           </div>
         </div>
-        <div className="container-xl p-2">
-          <b>{movies.length}</b> movies found
-        </div>
-        <div className="container-xl">
-          <div className="row">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        </div>
+        {moviesContent}
       </ErrorBoundary>
     </main>
   );

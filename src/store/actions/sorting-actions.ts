@@ -15,3 +15,6 @@ export type SetSortBy = ReturnType<typeof setSortBy>;
 
 export const setGenre = createAction<{ genre: string }>(SortingActions.SET_GENRE);
 export type SetGenre = ReturnType<typeof setGenre>;
+
+export const setSearchString = createAction<{ search: string }>(SortingActions.SET_SEARCH_STRING);
+export type SetSearchString = ReturnType<typeof setSearchString>;

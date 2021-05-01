@@ -28,13 +28,6 @@
   background: rgba(0, 0, 0, 0.8) url('./../../assets/background.jpg');
 }
 
-.find_movie_title {
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: normal;
-  padding: 10px 0;
-}
-
 .logo_text {
   font-weight: normal;
 }

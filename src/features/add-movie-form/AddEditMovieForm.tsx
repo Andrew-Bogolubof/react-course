@@ -79,7 +79,7 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
               htmlFor: 'title',
               placeholder: 'Title',
               value: formikBag.values.title,
-              onChangeHandler: (event) => {
+              onChange: (event) => {
                 formikBag.setFieldValue('title', event.target.value);
               },
             },
@@ -108,7 +108,7 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
               htmlFor: 'movie-url',
               placeholder: 'Movie URL',
               value: formikBag.values.movieUrl,
-              onChangeHandler: (event) => {
+              onChange: (event) => {
                 formikBag.setFieldValue('movieUrl', event.target.value);
               },
             },
@@ -150,7 +150,7 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
               htmlFor: 'runtime',
               placeholder: 'Runtime',
               value: formikBag.values.runtime,
-              onChangeHandler: (event) => {
+              onChange: (event) => {
                 formikBag.setFieldValue('runtime', event.target.value);
               },
             },
@@ -160,16 +160,12 @@ const AddEditMovieForm: React.FunctionComponent<AddEditMovieFormProps> = ({ movi
       <div
         className={`modal-footer d-flex justify-content-end align-items-center ${classes.modal_footer}`}
       >
-        <Button
-          type={ButtonType.Cancel}
-          name="Reset"
-          onClickHandler={() => formikBag.resetForm()}
-        />
+        <Button type={ButtonType.Cancel} name="Reset" onClick={() => formikBag.resetForm()} />
         <Button
           type={ButtonType.Primary}
           name="Submit"
           {...(formikBag.isValid ? {} : { invalid: true })}
-          onClickHandler={() => formikBag.submitForm()}
+          onClick={() => formikBag.submitForm()}
         />
       </div>
     </form>
