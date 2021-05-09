@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import AddEditMovieForm from '../AddEditMovieForm';
-import { createMovie } from '../../../store/actions/movies-actions';
+import { createMovie } from '../../../src/store/actions/movies-actions';
 
 jest.mock('react-redux', () => ({
   ...(jest.requireActual('react-redux') as object),

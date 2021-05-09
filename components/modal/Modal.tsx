@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useScrollLock } from '../../hooks';
+import { useScrollLock } from '../../src/hooks';
 import { Logo } from '../common/logo';
 import { Footer } from '../footer';
 import classes from './Modal.module.css';

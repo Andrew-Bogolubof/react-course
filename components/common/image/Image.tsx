@@ -12,10 +12,10 @@ const Image: React.FunctionComponent<ImageProps> = ({ src, alt }) => {
     setImageSrc(src);
   }, [src]);
 
-  const onImageLoadError = () => setImageSrc(notFoundImage);
+  const onImageLoadError = () => setImageSrc('../../../src/assets/image-not-found.png');
   return (
     <img
-      src={imageSrc ?? notFoundImage}
+      src={imageSrc ?? '../../../src/assets/image-not-found.png'}
       className="img-fluid"
       alt={alt}
       onError={onImageLoadError}

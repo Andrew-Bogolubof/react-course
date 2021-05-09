@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { Epic, ofType } from 'redux-observable';
 import { mergeMap, map } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
-import { EMPTY } from 'rxjs';
+import { EMPTY, from } from 'rxjs';
 import { Config } from '../../config';
 import { Movie } from '../../models';
 import { FetchMovie, MoviesActions, setMovies, SetMovies } from '../actions/movies-actions';
@@ -15,9 +15,9 @@ const fetchMovies: Epic<Input, SetMovies, AppState> = (action$, state$) =>
     ofType<Input>(MoviesActions.FETCH_MOVIE),
     mergeMap((action) =>
       isFetchMovie(action)
-        ? ajax
-            .getJSON<Movie>(`${Config.API.URL}/movies/${action.payload.id}`)
-            .pipe(map((response) => setMovies([...state$.value.movies, response])))
+        ? from(axios.get<Movie>(`${Config.API.URL}/movies/${action.payload.id}`)).pipe(
+            map((response) => setMovies([...state$.value.movies, response.data]))
+          )
         : EMPTY
     )
   );

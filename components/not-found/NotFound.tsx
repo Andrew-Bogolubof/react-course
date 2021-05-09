@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useHistory } from 'react-router';
+import { useRouter } from 'next/router';
 import classes from './NotFound.module.css';
 import { Logo } from '../common/logo';
 import { Image } from '../common/image';
@@ -8,9 +8,9 @@ import { Button as ButtonType } from '../common/button/models';
 import { Button } from '../common/button';
 
 const NotFound: React.FC = () => {
-  const history = useHistory();
+  const router = useRouter();
   const navigateHome = () => {
-    history.push('/');
+    router.push('/');
   };
   return (
     <section className={`container-fluid h-100 ${classes.header}`}>

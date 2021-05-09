@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useClickOutside } from '../../../hooks';
+import { useClickOutside } from '../../../src/hooks';
 import classes from './DropDown.module.css';
 
 export interface DropDownProps {

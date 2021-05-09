@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './MovieDetails.module.css';
-import { Movie } from '../../models';
+import { Movie } from '../../src/models';
 import { Image } from '../common/image';
 
 export interface MovieDetailsProps {

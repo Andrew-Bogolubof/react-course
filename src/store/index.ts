@@ -1,5 +1,12 @@
 import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import {
+  Action,
+  applyMiddleware,
+  combineReducers,
+  createStore as createStoreRedux,
+  Store,
+} from 'redux';
+import { createWrapper, Context, HYDRATE } from 'next-redux-wrapper';
 import { createEpicMiddleware } from 'redux-observable';
 // eslint-disable-next-line import/no-cycle
 import { rootEpic } from './epics';
@@ -18,16 +25,33 @@ export type AppState = {
 
 const rootReducer = combineReducers(reducers);
 
-const epicMiddleware = createEpicMiddleware();
-
-const middlewares = [epicMiddleware];
-
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
-
-// TODO: fix as any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-epicMiddleware.run(rootEpic as any);
+const reducer = (state: AppState, action: any): AppState => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state, // use previous state
+      ...action.payload, // apply delta from hydration
+    };
+    return nextState;
+  }
+  return rootReducer(state, action);
+};
 
 const useSelector: TypedUseSelectorHook<AppState> = useReduxSelector;
 
-export { store, useSelector };
+const createAppStore = () => {
+  // const epicMiddleware = createEpicMiddleware();
+  const makeStore = (context: Context) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // createStoreRedux(reducer as any, applyMiddleware(epicMiddleware));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    createStoreRedux(reducer as any);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const wrapper = createWrapper<Store<AppState>>(makeStore as any, { debug: true });
+  // epicMiddleware.run(rootEpic);
+
+  return wrapper;
+};
+
+export { createAppStore, useSelector };

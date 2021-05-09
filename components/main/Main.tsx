@@ -1,18 +1,22 @@
+import { AppContext } from 'next/app';
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { ErrorBoundary } from '../error-boundary';
 import classes from './Main.module.css';
 import { MovieCard } from '../movie-card';
 
 // TODO: remove mock movies and genres
-import moviesList from '../../mocks/movies.json';
+import moviesList from '../../src/mocks/movies.json';
 import { DropDown } from '../common/toggle';
 import { SortLineList } from '../common/sort-line-list';
-import { useSelector } from '../../store';
-import { fetchMovies } from '../../store/actions/movies-actions';
-import { SearchBy, SortBy } from '../../models';
-import { setGenre, setSortBy } from '../../store/actions/sorting-actions';
-import { mapSortByFieldToSortBy } from '../../models/mappers';
+import { useSelector } from '../../src/store';
+import { fetchMovies } from '../../src/store/actions/movies-actions';
+import { SearchBy, SortBy } from '../../src/models';
+import { setGenre, setSortBy } from '../../src/store/actions/sorting-actions';
+import { mapSortByFieldToSortBy } from '../../src/models/mappers';
+import { rootEpic } from '../../src/store/epics';
+
+const { withObservable, resolveActions } = require('next-redux-observable');
 
 const genres = Array.from(
   moviesList

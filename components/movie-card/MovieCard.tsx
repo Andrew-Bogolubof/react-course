@@ -1,9 +1,9 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { useClickOutside } from '../../hooks';
-import { Movie } from '../../models';
-import { deleteMovie } from '../../store/actions/movies-actions';
+import { useRouter } from 'next/router';
+import { useClickOutside } from '../../src/hooks';
+import { Movie } from '../../src/models';
+import { deleteMovie } from '../../src/store/actions/movies-actions';
 import { AddEditMovieForm } from '../add-movie-form';
 import { Button } from '../common/button';
 import { Button as ButtonType } from '../common/button/models';
@@ -19,7 +19,7 @@ export interface MovieCardProps {
 
 const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const router = useRouter();
   const [isHoverShown, setIsHoverShown] = useState(false);
   const [isEditOpened, setIsEditOpened] = useState(false);
   const [isEditFormOpened, setIsEditFormOpened] = useState(false);
@@ -61,7 +61,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = ({ movie }) => {
     [dispatch]
   );
   const openMovieDetails = () => {
-    history.push(`/film/${movie.id}`);
+    router.push(`/film/${movie.id}`);
   };
 
   const detailsHover = (
